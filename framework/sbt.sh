@@ -1,2 +1,5 @@
-# scala -cp tools/sbt_0.5.2_for_2.7.5.jar sbt.Main $*
-java -jar ~/Download/sbt-launch_0.10.jar $*
+if [ -z "$BIN_DIR" ]; then
+  BIN_DIR=../bin;
+fi
+
+java -Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=384M -jar ${BIN_DIR}/sbt-launch_0.10.jar $*
