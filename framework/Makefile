@@ -9,11 +9,12 @@ compile_obj:
 	./sbt.sh package
 
 compile: all
-	rm -rf ../build/servlet/WEB-INF/
-	mkdir -p ../build/servlet/WEB-INF/
-	mkdir -p ../build/lib/
-	cp $(OBJ) ../build/lib/
-	cp web_${DOMAIN}.xml ../build/servlet/WEB-INF/web.xml
+	rm -rf ../build/ROOT/WEB-INF/
+	mkdir -p ../build/ROOT/WEB-INF/
+	mkdir -p ../build/ROOT/WEB-INF/lib/
+	cp $(OBJ) ../build/ROOT/WEB-INF/lib/
+	cp web_${DOMAIN}.xml ../build/ROOT/WEB-INF/web.xml
+	cp project/boot/scala-2.9.1/lib/scala-library.jar ../build/ROOT/WEB-INF/lib/
 
 clean:
 	./sbt.sh clean

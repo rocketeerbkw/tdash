@@ -4,6 +4,8 @@ version := "0.2"
 
 scalaVersion := "2.9.1"
 
+scalacOptions += "-deprecation"
+
 libraryDependencies ++= Seq(
   "net.databinder" %% "dispatch-http" % "0.7.8",
   "net.databinder" %% "dispatch-oauth" % "0.7.8",
