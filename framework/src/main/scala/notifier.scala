@@ -113,7 +113,7 @@ object Notifier extends Actor {
     }
   }
 
-  private val adminList = List("harshad.rj@gmail.com")
+  private val adminList = List("admin@localhost.dev")
 
   private lazy val domainName = "[" + UtilsServlet.initParms.get("domainName").getOrElse("local domain") + "]"
 

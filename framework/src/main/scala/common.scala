@@ -31,9 +31,8 @@ object Common {
   var requests = 0
   var remainingHits = 0
   var lastCheck = System.currentTimeMillis
-  // val consumer = Consumer("lrhF8SXnl5q3gFOmzku4Gw", "PbB4Mr8pKAChWmd6AocY6gLmAKzPKaszYnXyIDQhzE")
-  val consumer = dispatch.oauth.Consumer("br3OrTMzKFaqVro19KqfA", "WWDAGcqdpJeudVTJg6O5vxf9HyEiYOoZmmF2nJlBE")
-  val androidConsumer = dispatch.oauth.Consumer("kRkuNSIFpGyyhrAOZUNLXA", "pAVs29CxzvUAAeG3qOgY9yYICAF78mn3LCJfbZePSJk")
+  val consumer = dispatch.oauth.Consumer("TWITTER_API_KEY", "TWITTER_API_SECRET")
+  val androidConsumer = dispatch.oauth.Consumer("TWITTER_API_KEY", "TWITTER_API_SECRET")
 
   def getRemHits(threshold:Int) = synchronized {
     if ((remainingHits < threshold) && ((System.currentTimeMillis - lastCheck) > (60*1000))) {

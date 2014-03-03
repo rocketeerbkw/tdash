@@ -439,7 +439,7 @@ object WebApp {
 
       // oauth sesame
       // val tok = http(Auth.request_token(Common.consumer))
-      val tok = http(Auth.request_token(Common.consumer, "http://tdash.org/oauth/return"))
+      val tok = http(Auth.request_token(Common.consumer, "http://127.0.0.1:8080/oauth/return"))
 
       // generate the url the user needs to go to, to grant us access
       // val auth_uri = Auth.authorize_url(tok).to_uri
@@ -472,7 +472,7 @@ object WebApp {
 
         // oauth sesame
         // val tok = http(Auth.request_token(Common.consumer))
-        val tok = http(Auth.request_token(Common.consumer, "http://tdash.org/oauth/return"))
+        val tok = http(Auth.request_token(Common.consumer, "http://127.0.0.1:8080/oauth/return"))
 
         // generate the url the user needs to go to, to grant us access
         // val auth_uri = Auth.authorize_url(tok).to_uri
