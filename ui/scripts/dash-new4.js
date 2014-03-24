@@ -785,7 +785,10 @@ var dash = new function () {
   };
 
   function isShortURL(indexIgnored) {
-    var url = $(this).attr("href");
+    // TODO: Find replacement for longurlplease.com
+    return false;
+
+    var url = $(this).attr("title");
     var match = urlHostPattern.exec(url);
     if (match) {
       if (binSearchSingleComparison(match[1],shortnerServices) >= 0) {
