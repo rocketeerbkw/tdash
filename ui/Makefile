@@ -1,7 +1,7 @@
 ifndef DEBUG
-COMPRESS_CMD=java -jar ${BIN_DIR}/yuicompressor-2.4.2.jar
+export COMPRESS_CMD=java -jar ${BIN_DIR}/yuicompressor-2.4.2.jar
 else
-COMPRESS_CMD=cat
+export COMPRESS_CMD=cat
 endif
 
 .PHONY : compile scripts
