@@ -513,6 +513,28 @@ var dash = new function () {
     redrawCurrentView();
   }
 
+  function tweetEntityReplace(text, tweet) {
+    var returnText = text;
+
+    // Replace URLs
+    if (tweet.entities.urls) {
+      for (var i = 0, count = tweet.entities.urls.length; i < count; i++) {
+        var urlEntity = tweet.entities.urls[i];
+        returnText = returnText.replace(urlEntity.url, '<a data-tweetId="' + tweet.id_str + '" href="' + urlEntity.url + '" title="' + urlEntity.expanded_url + '" class="st_link" target="_blank" onclick="dash.regClick(' + tweet.id_str + ');">' + urlEntity.display_url + '</a>');
+      }
+    }
+
+    // Replace media (twitter photo upload)
+    if (tweet.entities.media) {
+      for (var i = 0, count = tweet.entities.media.length; i < count; i++) {
+        var mediaEntity = tweet.entities.media[i];
+        returnText = returnText.replace(mediaEntity.url, '<a data-tweetId="' + tweet.id_str + '" href="' + mediaEntity.url + '" title="' + mediaEntity.expanded_url + '" class="st_link" target="_blank" onclick="dash.regClick(' + tweet.id_str + ');">' + mediaEntity.display_url + '</a>');
+      }
+    }
+
+    return returnText;
+  }
+
   function formatText(text, tweetId) {
     var onclickStr = ' onclick="dash.regClick('+tweetId+');"';
     text = text.replace(urlPattern,'<a data-tweetId="'+tweetId+'" href="$&" class="st_link" target="_blank"'+onclickStr+'>$&</a>').replace(namePattern, '<a href="http://twitter.com/$1" target="_blank"'+onclickStr+'>$&</a>');
@@ -799,7 +821,7 @@ var dash = new function () {
         classStr += (tweet.tdashRead ? ' read' : ' unread')
         tweetStr += '<tr data-tweet-id="'+tweetId+'" id="stat'+tweetId+'" onclick="dash.clickStat('+"'"+tweetId+"'"+')" class="' + classStr +'">';
         tweetStr += '<td class="indTd'+indStr+'"></td><td class="imgTd"><img class="prof_img" src="'+tweet.user.profile_image_url+'" /></td>';
-        tweetStr += '<td><p class="text">'+formatText(tweetText, tweetId)+'</p>';
+        tweetStr += '<td><p class="text">'+tweetEntityReplace(tweetText, tweet)+'</p>';
 
         // to avoid event propagation we do http://stackoverflow.com/questions/387736/how-to-stop-event-propagation-with-inline-onclick-attribute
         tweetStr += '<p class="metaStatus"><span class="author" onclick="var event = arguments[0]||window.event;dash.showUserDtl(event,\''+tweetId+'\');">'+tweet.user.screen_name+'</span><span class="dmPlcHld" ></span>';
