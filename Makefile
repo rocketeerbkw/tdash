@@ -6,9 +6,12 @@ export STATIC_DIR=${OUT_DIR}
 export SERVLET_DIR=${OUT_DIR}
 export DOMAIN="local"
 
-.PHONY : compile
+.PHONY : compile ui
 
 all: compile
+
+ui:
+	make -C ui compile
 
 compile:
 	make -C ui compile
