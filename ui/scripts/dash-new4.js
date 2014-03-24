@@ -16,7 +16,7 @@ $.fn.setCursorPosition = function(pos) {
 };
 
 function createMyNotification(title, content) {
-  var notifer = null;
+  var notifier = null;
 
   if (window.webkitNotifications) {
     if (window.webkitNotifications.checkPermission() == 0) { // 0 is PERMISSION_ALLOWED
