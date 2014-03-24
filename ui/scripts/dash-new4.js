@@ -675,7 +675,7 @@ var dash = new function () {
   }
 
   var thumbMatchers = [
-    [ /http:\/\/tweetphoto\.com\/([\S]+)/i, function(href, tweetId, imageIdIgnored) {
+    [ /tweetphoto\.com\/([\S]+)/i, function(href, tweetId, imageIdIgnored) {
       dashOauth.getJSONP("http://tweetphotoapi.com/api/TPAPI.svc/jsonp/metadatafromurl",
         {url:href, callback:"?"}, tweetId, function(response, tweetId) {
             if (response.ThumbnailUrl) {
@@ -684,7 +684,7 @@ var dash = new function () {
           }
       );
     }],
-    [ /http:\/\/vimeo\.com\/([0-9]+)/i, function(href, tweetId, videoId) {
+    [ /vimeo\.com\/([0-9]+)/i, function(href, tweetId, videoId) {
       dashOauth.getJSONP("http://vimeo.com/api/v2/video/"+videoId+".json",
         {callback:"?"}, tweetId, function(response, tweetId) {
             if (response.length > 0) {
@@ -695,16 +695,16 @@ var dash = new function () {
           }
       );
     }],
-    [ /http:\/\/twitpic\.com\/([\S]+)/i, function(href, tweetId, imageId) {
+    [ /twitpic\.com\/([\S]+)/i, function(href, tweetId, imageId) {
       mkThumbImg(tweetId, href, 'http://twitpic.com/show/mini/'+imageId, 'Twitpic');
     }],
-    [ /http:\/\/tdash\.org\/x([\S]+)/i, function(href, tweetId, imageId) {
+    [ /tdash\.org\/x([\S]+)/i, function(href, tweetId, imageId) {
       mkThumbImg(tweetId, href, 'http://tdash.org/pic/showThumb?id='+imageId, 'tDash');
     }],
-    [ /http:\/\/[w.]*flic\.kr\/p\/([\S]+)/i, function(href, tweetId, imageId) {
+    [ /[w.]*flic\.kr\/p\/([\S]+)/i, function(href, tweetId, imageId) {
       mkThumbImg(tweetId, href, 'http://flickr.com/p/img/'+imageId+'_s.jpg', 'Flickr');
     }],
-    [ /http:\/\/[w.]*flickr.com\/photos\/[\S]+\/([0-9]+)/i, function(href, tweetId, imageId) {
+    [ /[w.]*flickr.com\/photos\/[\S]+\/([0-9]+)/i, function(href, tweetId, imageId) {
       // encode to base58 according to http://www.flickr.com/groups/api/discuss/72157616713786392/
       var alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
       var base_count = alphabet.length;
@@ -719,28 +719,28 @@ var dash = new function () {
         encoded = alphabet[imageId] + encoded;
       mkThumbImg(tweetId, href, 'http://flickr.com/p/img/'+encoded+'_s.jpg', 'Flickr');
     }],
-    [ /http:\/\/.*youtube.com\/.*[?&]v=([^&#]*)/i, function(href, tweetId, videoId) {
+    [ /.*youtube.com\/.*[?&]v=([^&#]*)/i, function(href, tweetId, videoId) {
       mkThumbImg(tweetId, href, 'http://img.youtube.com/vi/'+videoId+'/2.jpg', 'YouTube');
     }],
-    [ /http:\/\/youtu.be\/([^&#?]*)/i, function(href, tweetId, videoId) {
+    [ /youtu.be\/([^&#?]*)/i, function(href, tweetId, videoId) {
       mkThumbImg(tweetId, href, 'http://img.youtube.com/vi/'+videoId+'/2.jpg', 'YouTube');
     }],
-    [ /http:\/\/yfrog\.com\/([\S]+)/i, function(href, tweetId, imageId) {
+    [ /yfrog\.com\/([\S]+)/i, function(href, tweetId, imageId) {
       mkThumbImg(tweetId, href, 'http://yfrog.com/'+imageId+'.th.jpg', 'yFrog');
     }],
-    [ /http:\/\/metacafe\.com\/w[atch]*\/([0-9]+)\/.*/i, function(href, tweetId, videoId) {
+    [ /metacafe\.com\/w[atch]*\/([0-9]+)\/.*/i, function(href, tweetId, videoId) {
       mkThumbImg(tweetId, href, 'http://metacafe.com/thumb/'+videoId+'.jpg', 'MetaCafe');
     }],
-    [ /http:\/\/[w.]*dailymotion\.com\/video\/([^_]+).*/i, function(href, tweetId, videoId) {
+    [ /[w.]*dailymotion\.com\/video\/([^_]+).*/i, function(href, tweetId, videoId) {
       mkThumbImg(tweetId, href, 'http://dailymotion.com/thumbnail/160x120/video/'+videoId, 'DailyMotion');
     }],
-    [ /http:\/\/pk\.gd\/(.*)/i, function(href, tweetId, imgId) {
+    [ /pk\.gd\/(.*)/i, function(href, tweetId, imgId) {
       mkThumbImg(tweetId, href, 'http://img.pikchur.com/pic_'+imgId+'_t.jpg', 'Pikchur');
     }],
-    [ /http:\/\/mp\.gd\/(.*)/i, function(href, tweetId, videoId) {
+    [ /mp\.gd\/(.*)/i, function(href, tweetId, videoId) {
       mkThumbImg(tweetId, href, 'http://vid.pikchur.com/vid_'+videoId+'_t.jpg', 'Pikchur Video');
     }],
-    [ /http:\/\/pikchur\.com\/(.*)/i, function(href, tweetId, mediaId) {
+    [ /pikchur\.com\/(.*)/i, function(href, tweetId, mediaId) {
       if (mediaId.substring(0,2) === 'v/') {
         // video
         mkThumbImg(tweetId, href, 'http://vid.pikchur.com/vid_'+mediaId.substring(2)+'_t.jpg', 'Pikchur Video');
@@ -750,7 +750,7 @@ var dash = new function () {
       }
     }],
     // 8tracks API http://docs.google.com/Doc?docid=0AQstf4NcmkGwZGdia2c5ZjNfNDNjbW01Y2dmZw&hl=en
-    [ /http:\/\/8tracks\.com\/[^\/]+\/(.*)/i, function(href, tweetId, trackId) {
+    [ /8tracks\.com\/[^\/]+\/(.*)/i, function(href, tweetId, trackId) {
       dashOauth.getJSONP("http://8tracks.com/mixes.jsonp",
         {q:trackId,callback:"?"}, tweetId, function(response, tweetId) {
             if (response.mixes) {
@@ -762,8 +762,8 @@ var dash = new function () {
           }
       );
     }],
-    // Twitsnaps 
-    [ /http:\/\/twitsnaps\.com\/([0-9]+)/i, function(href, tweetId, imageId) {
+    // Twitsnaps
+    [ /twitsnaps\.com\/([0-9]+)/i, function(href, tweetId, imageId) {
       mkThumbImg(tweetId, href, 'http://twitsnaps.com/mini/'+imageId, 'Twitsnaps Image');
     }]
 
@@ -774,7 +774,7 @@ var dash = new function () {
 
   function getThumbnails(indexIgnored, elem) {
     var myElem = $(elem);
-    var href = myElem.attr("href");
+    var href = myElem.attr("title");
 
     for (var i=thumbMatchers.length; i--;) {
       var match = thumbMatchers[i][0].exec(href);
