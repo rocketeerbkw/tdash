@@ -31,7 +31,7 @@ object Common {
   var requests = 0
   var remainingHits = 0
   var lastCheck = System.currentTimeMillis
-  val consumer = dispatch.oauth.Consumer("TWITTER_API_KEY", "TWITTER_API_SECRET")
+  val consumer = dispatch.oauth.Consumer(Config.twitterDesktopOauthKey, Config.twitterDesktopOauthSecret)
   val androidConsumer = dispatch.oauth.Consumer("TWITTER_API_KEY", "TWITTER_API_SECRET")
 
   def getRemHits(threshold:Int) = synchronized {

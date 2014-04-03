@@ -139,14 +139,12 @@ object WebApp {
     (map, tokens)
   }
 
-  lazy val domainName = initParms.get("domainName")
+  lazy val domainName = Config.domainName
 
   def setCookie(name:String,value:String,age:Int, response:HttpServletResponse) = {
     val cookie = new Cookie(name, value)
     cookie.setMaxAge(age)
-    if (domainName.isDefined) {
-      cookie.setDomain(domainName.get)
-    }
+    cookie.setDomain(domainName)
     cookie.setPath("/")
     response.addCookie(cookie)
   }
@@ -229,9 +227,7 @@ object WebApp {
     )
     lstCookies foreach {cookie =>
       cookie.setMaxAge(0) // age = 0 makes it go away
-      if (domainName.isDefined) {
-        cookie.setDomain(domainName.get)
-      }
+      cookie.setDomain(domainName)
       cookie.setPath("/")
     }
     lstCookies foreach {cookie => response.addCookie(cookie)}
@@ -439,7 +435,7 @@ object WebApp {
 
       // oauth sesame
       // val tok = http(Auth.request_token(Common.consumer))
-      val tok = http(Auth.request_token(Common.consumer, "http://127.0.0.1:8080/oauth/return"))
+      val tok = http(Auth.request_token(Common.consumer, Config.baseUrl + "oauth/return"))
 
       // generate the url the user needs to go to, to grant us access
       // val auth_uri = Auth.authorize_url(tok).to_uri
@@ -472,7 +468,7 @@ object WebApp {
 
         // oauth sesame
         // val tok = http(Auth.request_token(Common.consumer))
-        val tok = http(Auth.request_token(Common.consumer, "http://127.0.0.1:8080/oauth/return"))
+        val tok = http(Auth.request_token(Common.consumer, Config.baseUrl + "oauth/return"))
 
         // generate the url the user needs to go to, to grant us access
         // val auth_uri = Auth.authorize_url(tok).to_uri

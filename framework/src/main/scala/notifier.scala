@@ -29,15 +29,13 @@ object Notifier extends Actor {
   case class NewComment(uploadId:String, thumbStr:String, comment:String)
   case class MultipleLogin(newLoginToken:String, newLoginSecret:String, tokens:List[(Int,String,String)])
 
-  private val SMTP_HOST_NAME = "localhost"
-  private val SMTP_HOST_PORT = 25
-  private val SMTP_AUTH_USER = "tdash@hrj.xen.prgmr.com"
-  private val SMTP_AUTH_PWD  = "xyz"
-  private val SMTP_FROM_ADDR = "tdash notifier"
+  private val SMTP_HOST_NAME = Config.smtpHost
+  private val SMTP_HOST_PORT = Config.smtpPort
+  private val SMTP_AUTH_USER = Config.smtpUser
+  private val SMTP_AUTH_PWD  = Config.smtpPass
+  private val SMTP_FROM_ADDR = Array[Address](new InternetAddress(Config.fromEmail))
 
   private val maxRetries = 5
-
-  private lazy val fromAddress = Array[Address](new InternetAddress(SMTP_AUTH_USER, SMTP_FROM_ADDR))
 
   val props = new Properties();
 
@@ -58,7 +56,7 @@ object Notifier extends Actor {
   private def sendMessage(emails:List[String], subject:String, content:String, mimeType:Option[String], retryCount:Int):Unit = {
     try {
       val message = new MimeMessage(mailSession)
-      message.addFrom (fromAddress)
+      message.addFrom (SMTP_FROM_ADDR)
       message.setSubject(subject)
       message.setContent(content, mimeType.getOrElse("text/plain"))
 
@@ -113,9 +111,9 @@ object Notifier extends Actor {
     }
   }
 
-  private val adminList = List("admin@localhost.dev")
+  private val adminList = Config.adminEmails
 
-  private lazy val domainName = "[" + UtilsServlet.initParms.get("domainName").getOrElse("local domain") + "]"
+  private lazy val domainName = "[" + Config.domainName + "]"
 
   import Actor._
   def act() = {

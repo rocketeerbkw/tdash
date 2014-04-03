@@ -76,7 +76,7 @@ object Pic {
 
   def getShowThumb (request:Request, response:HttpServletResponse):String = {
     val uploadId = getIdFromStr(request.getParam("id"))
-    "http://tdash.org/"+computeThumbPath(uploadId)  // the redirect URL
+    Config.baseUrl+computeThumbPath(uploadId)  // the redirect URL
   }
 
   val perPagePics = 10
@@ -169,7 +169,7 @@ object Pic {
     }
   }
 
-  private def computeThumbPath(id:Int) = getShardedDir(id) + "/thumb"+id
+  private def computeThumbPath(id:Int) = getShardedDir(id) + "thumb"+id
 
   def getViewPic (request:Request, response:HttpServletResponse):String = {
     val (cookies, loginTokens) = WebApp.processLoginCookies(request.req)
@@ -295,10 +295,10 @@ object Pic {
         val updateTwitter = request.getParamOpt("update_twitter")
         dbHelper.insertNewComment (uploadId, userId.get, comment)
         if(updateTwitter.isDefined) {
-          UpdateWorker ! UpdateWorker.UpdateStatus(comment.take(110) + " http://"+WebApp.domainName.getOrElse("tdash.org")+"/x"+intToBase64(uploadId), cookies("oauth_token"), cookies("oauth_token_secret"))
+          UpdateWorker ! UpdateWorker.UpdateStatus(comment.take(110) + " " + Config.baseUrl + "x"+intToBase64(uploadId), cookies("oauth_token"), cookies("oauth_token_secret"))
         }
         Notifier ! Notifier.NewComment(intToBase64(uploadId), computeThumbPath(uploadId), comment)
-        response.sendRedirect("http://tdash.org/x"+intToBase64(uploadId))
+        response.sendRedirect(Config.baseUrl + "x"+intToBase64(uploadId))
         ""
       }
     } else {
@@ -734,10 +734,10 @@ object Pic {
                 dbHelper.insertNewUpload (uploadId, userId.get, descr, fileItem.getName, fileItem.getContentType)
 
                 try {
-                  UpdateWorker ! UpdateWorker.UpdateStatus(descr.take(110) + " http://"+WebApp.domainName.getOrElse("tdash.org")+"/x"+intToBase64(uploadId), token, tokenSecret)
+                  UpdateWorker ! UpdateWorker.UpdateStatus(descr.take(110) + " " + Config.baseUrl + "x"+intToBase64(uploadId), token, tokenSecret)
                   Notifier ! Notifier.UploadSuccess(intToBase64(uploadId), computeThumbPath(uploadId))
 
-                  val resultURL = "http://tdash.org/x"+intToBase64(uploadId)
+                  val resultURL = Config.baseUrl + "x"+intToBase64(uploadId)
 
                   if (embedded) {
                     """
@@ -867,12 +867,12 @@ object Pic {
 
                 try {
                   UpdateWorker ! UpdateWorker.UpdateStatusAndroid(
-                    descr.take(110) + " http://"+WebApp.domainName.getOrElse("tdash.org")+"/x"+intToBase64(uploadId),
+                    descr.take(110) + " " + Config.baseUrl + "x"+intToBase64(uploadId),
                     token, tokenSecret, verifier)
 
                   Notifier ! Notifier.UploadSuccess(intToBase64(uploadId), computeThumbPath(uploadId))
 
-                  val resultURL = "http://tdash.org/x"+intToBase64(uploadId)
+                  val resultURL = Config.baseUrl + "x"+intToBase64(uploadId)
 
                   val result = """
                     success,%s
