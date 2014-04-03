@@ -16,6 +16,22 @@
         <param-name>staticDir</param-name>
         <param-value>static/</param-value>
       </init-param>
+      <init-param>
+        <param-name>domainName</param-name>
+        <param-value>127.0.0.1</param-value>
+      </init-param>
+      <init-param>
+        <param-name>port</param-name>
+        <param-value>8080</param-value>
+      </init-param>
+      <init-param>
+        <param-name>oauthKey</param-name>
+        <param-value>YOUR_KEY_HERE</param-value>
+      </init-param>
+      <init-param>
+        <param-name>oauthSecret</param-name>
+        <param-value>YOUR_SECRET_HERE</param-value>
+      </init-param>
     </servlet>
 
     <servlet-mapping>
