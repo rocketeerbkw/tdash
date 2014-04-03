@@ -7,8 +7,8 @@ A Twitter Dashboard
 
 1. Install [virtualbox][3], [vagrant][4] and [vagrant-vbguest][5].
 2. Clone this repository.
-3. Add your twitter app API keys in `framework/src/main/scala/common.scala`.
-4. Run `vagrant up`, `vagrant ssh`, `cd /vagrant`, `make compile`, `./runWebServer.sh`.
+3. Run `vagrant up`, `vagrant ssh`, `cd /vagrant`, `make compile`, `./runWebServer.sh`.
+4. Add your twitter app API keys in `build/ROOT/WEB-INF/web.xml`.
 5. Browse to http://127.0.0.1:8080.
 
 ## Copyright & License ##
