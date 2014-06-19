@@ -40,7 +40,7 @@ object AdminWorker extends Actor {
       react {
         case PurgeBadCreds => {
           import dispatch.{Request}
-          var allPurged:List[Int]=Nil
+          var allPurged:List[Long]=Nil
 
           val dbKeys = dbHelper.getAllKeys
           dbKeys foreach {key =>

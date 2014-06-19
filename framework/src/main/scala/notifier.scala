@@ -23,9 +23,9 @@ object Delayer {
 object Notifier extends Actor {
   case class LoginSuccess (screenName:String)
   case class UploadSuccess (uploadId:String, thumbStr:String)
-  case class FoundFollowers (userId:Int, count:Int)
-  case class VerifiedCredentials(userId:Int)
-  case class Purged(userId:List[Int])
+  case class FoundFollowers (userId:Long, count:Int)
+  case class VerifiedCredentials(userId:Long)
+  case class Purged(userId:List[Long])
   case class NewComment(uploadId:String, thumbStr:String, comment:String)
   case class MultipleLogin(newLoginToken:String, newLoginSecret:String, tokens:List[(Int,String,String)])
 

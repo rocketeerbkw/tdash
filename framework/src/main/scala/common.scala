@@ -4,7 +4,7 @@ import java.io.{BufferedReader, InputStreamReader}
 import java.net.{URL}
 
 case class User(
-  id:Int, screenName:String, followerCount:Int, friendCount:Int,
+  id:Long, screenName:String, followerCount:Int, friendCount:Int,
   statusesCount:Int, createdAt:java.util.Date, lastUpdate:java.util.Date)
 
 case class TaskCacher(f: () => List[Int]) {
@@ -100,7 +100,7 @@ object Common {
 
   private val dateFormatter = new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy")
 
-  def lookupUsers(userIds : Seq[Int], oauthToken : dispatch.oauth.Token) = {
+  def lookupUsers(userIds : Seq[Long], oauthToken : dispatch.oauth.Token) = {
     import dispatch.{Http, Request}
     import dispatch.twitter.Twitter
     import dispatch.oauth.OAuth._
@@ -123,7 +123,7 @@ object Common {
             val createdDate = dateFormatter.parse(details("created_at").toString)
             
             User(
-              details("id").toString.toInt,
+              details("id").toString.toLong,
               details("screen_name").toString,
               details("followers_count").toString.toInt,
               details("friends_count").toString.toInt,
@@ -141,7 +141,7 @@ object Common {
     users
   }
 
-  def getUserDetails(userId:Either[Int,String]) = {
+  def getUserDetails(userId:Either[Long,String]) = {
     var details:Option[User] = None
     var retryCount = 0
 
@@ -164,7 +164,7 @@ object Common {
           val createdDate = dateFormatter.parse(details("created_at").toString)
           
           Some(User(
-            details("id").toString.toInt,
+            details("id").toString.toLong,
             details("screen_name").toString,
             details("followers_count").toString.toInt,
             details("friends_count").toString.toInt,

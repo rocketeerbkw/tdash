@@ -3,7 +3,7 @@ package bhoot
 import scala.actors._
 
 object Worker extends Actor {
-  case class FindFollowers(userId:Int, oauthToken:dispatch.oauth.Token)
+  case class FindFollowers(userId:Long, oauthToken:dispatch.oauth.Token)
 
   start
 
@@ -29,15 +29,16 @@ object Worker extends Actor {
               // delete the old
               dbHelper.clearFollowers(userId)
 
-              var needNames = List[Int]()
+              var needNames = List[Long]()
 
               followerIds.get.foreach {id =>
+                val longId = id.asInstanceOf[Number].longValue
                 // insert the new
-                dbHelper.insertFollower(userId, id)
+                dbHelper.insertFollower(userId, longId)
                 
                 // make sure screen name is available
-                if ( ! dbHelper.getScreenNameFromUserId(id).isDefined) {
-                  needNames ::= id
+                if ( ! dbHelper.getScreenNameFromUserId(longId).isDefined) {
+                  needNames ::= longId
                 }
               }
 

@@ -3,14 +3,14 @@ package bhoot
 import java.io.{BufferedReader, InputStreamReader}
 import java.net.{URL}
 
-case class Contact(id:Int, name:String)
-case class ContactList(friends:List[Contact], secondLevel:Map[Int, Contact])
+case class Contact(id:Long, name:String)
+case class ContactList(friends:List[Contact], secondLevel:Map[Long, Contact])
 
 case class FriendError(msg:String)
-case class UserDetails(id:Int, gotDetails:Boolean, gotFriends:Boolean, screenName:String, friendCount:Int, hasError:Boolean)
+case class UserDetails(id:Long, gotDetails:Boolean, gotFriends:Boolean, screenName:String, friendCount:Int, hasError:Boolean)
 
 object TwitterHelper {
-  def getContactIds(userId:Int, followers:Boolean, oauthToken:dispatch.oauth.Token) = {
+  def getContactIds(userId:Long, followers:Boolean, oauthToken:dispatch.oauth.Token) = {
     try {
       println((new java.util.Date) + " finding Contacts of " + userId + " (followers:" + followers + ")")
 
@@ -37,7 +37,7 @@ object TwitterHelper {
             val length = input.length - 1   // ignore the trailing ]
             var currentIntValue = 0;
             var errorFound = false
-            var contacts:List[Int] = Nil
+            var contacts:List[Long] = Nil
 
             while ((index < length) && (!errorFound)) {
               val c = input(index)

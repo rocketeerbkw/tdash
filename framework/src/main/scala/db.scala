@@ -2,7 +2,7 @@ package bhoot
 
 import Utils._
 
-case class Upload(id:Int, userId:Int, creator:String, createdAt:java.util.Date, viewCount:Int, viewLoggedCount:Int, descr:String)
+case class Upload(id:Int, userId:Long, creator:String, createdAt:java.util.Date, viewCount:Int, viewLoggedCount:Int, descr:String)
 case class Comment(screenName:String, comment:String)
 
 /** Evertying related to the database */
@@ -54,12 +54,12 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def insertNewUser(user_id:Int, screen_name:String) = {
+  def insertNewUser(user_id:Long, screen_name:String) = {
     val numInsertions =
       insertNewUserStmt synchronized {
-        insertNewUserStmt.setInt(1,user_id)
+        insertNewUserStmt.setLong(1,user_id)
         insertNewUserStmt.setString(2,screen_name)
-        insertNewUserStmt.setInt(3,user_id)
+        insertNewUserStmt.setLong(3,user_id)
         insertNewUserStmt.execute
         insertNewUserStmt.getUpdateCount
       }
@@ -68,7 +68,7 @@ object dbHelper {
       // update the username assuming it failed because of existing entry
       updateUserNameStmt synchronized {
         updateUserNameStmt.setString(1, screen_name)
-        updateUserNameStmt.setInt(2, user_id)
+        updateUserNameStmt.setLong(2, user_id)
         updateUserNameStmt.execute
       }
     }
@@ -86,15 +86,15 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def insertNewOAuth(user_id:Int, screen_name:String, oauth_token:String, oauth_token_secret:String, oauth_verifier:String) = {
+  def insertNewOAuth(user_id:Long, screen_name:String, oauth_token:String, oauth_token_secret:String, oauth_verifier:String) = {
     insertNewUser(user_id, screen_name)
 
     insertNewOAuthStmt synchronized {
-      insertNewOAuthStmt.setInt(1,user_id)
+      insertNewOAuthStmt.setLong(1,user_id)
       insertNewOAuthStmt.setString(2,oauth_token)
       insertNewOAuthStmt.setString(3,oauth_token_secret)
       insertNewOAuthStmt.setString(4,oauth_verifier)
-      insertNewOAuthStmt.setInt(5,user_id)
+      insertNewOAuthStmt.setLong(5,user_id)
       insertNewOAuthStmt.setString(6,oauth_token)
       insertNewOAuthStmt.setString(7,oauth_token_secret)
       insertNewOAuthStmt.execute
@@ -114,14 +114,14 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def insertNewAndroidOAuth(user_id:Int, oauth_token:String, oauth_token_secret:String, oauth_verifier:String) = {
+  def insertNewAndroidOAuth(user_id:Long, oauth_token:String, oauth_token_secret:String, oauth_verifier:String) = {
 
     insertNewAndroidOAuthStmt synchronized {
-      insertNewAndroidOAuthStmt.setInt(1,user_id)
+      insertNewAndroidOAuthStmt.setLong(1,user_id)
       insertNewAndroidOAuthStmt.setString(2,oauth_token)
       insertNewAndroidOAuthStmt.setString(3,oauth_token_secret)
       insertNewAndroidOAuthStmt.setString(4,oauth_verifier)
-      insertNewAndroidOAuthStmt.setInt(5,user_id)
+      insertNewAndroidOAuthStmt.setLong(5,user_id)
       insertNewAndroidOAuthStmt.setString(6,oauth_token)
       insertNewAndroidOAuthStmt.setString(7,oauth_token_secret)
       insertNewAndroidOAuthStmt.execute
@@ -140,10 +140,10 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def insertNewUpload(id:Int, user_id:Int, descr:String, image_name:String, image_type:String) = {
+  def insertNewUpload(id:Int, user_id:Long, descr:String, image_name:String, image_type:String) = {
     insertNewUploadStmt synchronized {
       insertNewUploadStmt.setInt(1,id)
-      insertNewUploadStmt.setInt(2,user_id)
+      insertNewUploadStmt.setLong(2,user_id)
       insertNewUploadStmt.setString(3,descr)
       insertNewUploadStmt.setString(4,image_name)
       insertNewUploadStmt.setString(5,image_type)
@@ -163,10 +163,10 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def insertNewComment(uploadId:Int, userId:Int, comment:String) = {
+  def insertNewComment(uploadId:Int, userId:Long, comment:String) = {
     insertNewCommentStmt synchronized {
       insertNewCommentStmt.setInt(1,uploadId)
-      insertNewCommentStmt.setInt(2,userId)
+      insertNewCommentStmt.setLong(2,userId)
       insertNewCommentStmt.setString(3,comment)
       insertNewCommentStmt.execute
       insertNewCommentStmt.getUpdateCount
@@ -184,10 +184,10 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def insertFollower(userId:Int, followerId:Int) = {
+  def insertFollower(userId:Long, followerId:Long) = {
     insertNewFollowerStmt synchronized {
-      insertNewFollowerStmt.setInt(1,userId)
-      insertNewFollowerStmt.setInt(2,followerId)
+      insertNewFollowerStmt.setLong(1,userId)
+      insertNewFollowerStmt.setLong(2,followerId)
       insertNewFollowerStmt.execute
       insertNewFollowerStmt.getUpdateCount
     }
@@ -203,9 +203,9 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def clearFollowers(userId:Int) = {
+  def clearFollowers(userId:Long) = {
     clearFollowersStmt synchronized {
-      clearFollowersStmt.setInt(1,userId)
+      clearFollowersStmt.setLong(1,userId)
       clearFollowersStmt.execute
       clearFollowersStmt.getUpdateCount
     }
@@ -222,9 +222,9 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def removeKey(userId:Int, tok:String, tokSecret:String) = {
+  def removeKey(userId:Long, tok:String, tokSecret:String) = {
     removeKeyStmt synchronized {
-      removeKeyStmt.setInt(1,userId)
+      removeKeyStmt.setLong(1,userId)
       removeKeyStmt.setString(2,tok)
       removeKeyStmt.setString(3,tokSecret)
       removeKeyStmt.execute
@@ -283,7 +283,7 @@ object dbHelper {
     getUserIdFromTokenStmt synchronized {
       getUserIdFromTokenStmt.setString(1,oauth_token)
       getUserIdFromTokenStmt.setString(2,oauth_token_secret)
-      val result = extractResults(getUserIdFromTokenStmt.executeQuery, {row => row.getInt(1)}, None)
+      val result = extractResults(getUserIdFromTokenStmt.executeQuery, {row => row.getLong(1)}, None)
 
       result._1.firstOption
     }
@@ -305,7 +305,7 @@ object dbHelper {
       getAndroidUserIdFromTokenStmt.setString(1,oauth_token)
       getAndroidUserIdFromTokenStmt.setString(2,oauth_token_secret)
       getAndroidUserIdFromTokenStmt.setString(3,oauth_verifier)
-      val result = extractResults(getAndroidUserIdFromTokenStmt.executeQuery, {row => row.getInt(1)}, None)
+      val result = extractResults(getAndroidUserIdFromTokenStmt.executeQuery, {row => row.getLong(1)}, None)
 
       result._1.firstOption
     }
@@ -345,7 +345,7 @@ object dbHelper {
   def getUserIdFromScreenName(screenName:String) = {
     getUserIdFromScreenNameStmt synchronized {
       getUserIdFromScreenNameStmt.setString(1,screenName)
-      val result = extractResults(getUserIdFromScreenNameStmt.executeQuery, {row => row.getInt(1)}, None)
+      val result = extractResults(getUserIdFromScreenNameStmt.executeQuery, {row => row.getLong(1)}, None)
 
       result._1.firstOption
     }
@@ -362,9 +362,9 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def getSettings(userId:Int) = {
+  def getSettings(userId:Long) = {
     getSettingsStmt synchronized {
-      getSettingsStmt.setInt(1,userId)
+      getSettingsStmt.setLong(1,userId)
       val result = extractResults(getSettingsStmt.executeQuery, {row => UserSetting(row.getBoolean(1))}, None)
 
       result._1.firstOption
@@ -383,9 +383,9 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def getScreenNameFromUserId(userId:Int) = {
+  def getScreenNameFromUserId(userId:Long) = {
     getScreenNameFromUserIdStmt synchronized {
-      getScreenNameFromUserIdStmt.setInt(1,userId)
+      getScreenNameFromUserIdStmt.setLong(1,userId)
       val result = extractResults(getScreenNameFromUserIdStmt.executeQuery, {row => row.getString(1)}, None)
 
       result._1.firstOption
@@ -406,9 +406,9 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def getFollowers(userId:Int) = {
+  def getFollowers(userId:Long) = {
     getFollowersStmt synchronized {
-      getFollowersStmt.setInt(1,userId)
+      getFollowersStmt.setLong(1,userId)
       val result = extractResults(getFollowersStmt.executeQuery, {row => row.getString(1)}, None)
 
       result._1
@@ -448,9 +448,9 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def getFollowerUpdated(userId:Int) = {
+  def getFollowerUpdated(userId:Long) = {
     getFollowerUpdatedStmt synchronized {
-      getFollowerUpdatedStmt.setInt(1,userId)
+      getFollowerUpdatedStmt.setLong(1,userId)
       val result = extractResults(getFollowerUpdatedStmt.executeQuery, {row => row.getDate(1)}, None)
 
       result._1.firstOption
@@ -469,11 +469,11 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def getUpload(uploadId:Int) = {
+  def getUpload(uploadId:Long) = {
     getUploadStmt synchronized {
-      getUploadStmt.setInt(1,uploadId)
+      getUploadStmt.setLong(1,uploadId)
       val result = extractResults(getUploadStmt.executeQuery, {row =>
-        Upload(row.getInt(1), row.getInt(2), row.getString(3), row.getDate(4), row.getInt(5), row.getInt(6), row.getString(7))
+        Upload(row.getInt(1), row.getLong(2), row.getString(3), row.getDate(4), row.getInt(5), row.getInt(6), row.getString(7))
       }, None)
 
       result._1.firstOption
@@ -510,9 +510,9 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def updateOldOnTopSetting(userId:Int, oldOnTop:Boolean) = {
+  def updateOldOnTopSetting(userId:Long, oldOnTop:Boolean) = {
     updateOldOnTopSettingStmt synchronized {
-      updateOldOnTopSettingStmt.setInt(1, userId)
+      updateOldOnTopSettingStmt.setLong(1, userId)
       updateOldOnTopSettingStmt.setBoolean(2, oldOnTop)
       val result = extractResults(updateOldOnTopSettingStmt.executeQuery, {row => 0}, None)
 
@@ -550,10 +550,10 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def setFollowerUpdated(userId:Int,time:Long) = {
+  def setFollowerUpdated(userId:Long,time:Long) = {
     setFollowerUpdatedStmt synchronized {
       setFollowerUpdatedStmt.setDate(1, new java.sql.Date(time))
-      setFollowerUpdatedStmt.setInt(2, userId)
+      setFollowerUpdatedStmt.setLong(2, userId)
       setFollowerUpdatedStmt.executeUpdate
     }
   }
@@ -572,9 +572,9 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def getRecentUploads(userId:Int, uploadId:Int, offset:Int, limit:Int) = {
+  def getRecentUploads(userId:Long, uploadId:Int, offset:Int, limit:Int) = {
     getRecentUploadsStmt synchronized {
-      getRecentUploadsStmt.setInt(1,userId)
+      getRecentUploadsStmt.setLong(1,userId)
       getRecentUploadsStmt.setInt(2,uploadId)
       getRecentUploadsStmt.setInt(3,offset)
       getRecentUploadsStmt.setInt(4,limit)
@@ -598,15 +598,15 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def getRecentUploadsDetails(userId:Int, uploadId:Int, offset:Int, limit:Int) = {
+  def getRecentUploadsDetails(userId:Long, uploadId:Int, offset:Int, limit:Int) = {
     getRecentUploadsDetailsStmt synchronized {
-      getRecentUploadsDetailsStmt.setInt(1,userId)
+      getRecentUploadsDetailsStmt.setLong(1,userId)
       getRecentUploadsDetailsStmt.setInt(2,uploadId)
       getRecentUploadsDetailsStmt.setInt(3,offset)
       getRecentUploadsDetailsStmt.setInt(4,limit)
       val result = extractResultsOrd(
         getRecentUploadsDetailsStmt.executeQuery, {row =>
-          Upload(row.getInt(1), row.getInt(2), row.getString(3), row.getDate(4), row.getInt(5), row.getInt(6), row.getString(7))
+          Upload(row.getInt(1), row.getLong(2), row.getString(3), row.getDate(4), row.getInt(5), row.getInt(6), row.getString(7))
         }, None)
 
       result._1
@@ -649,7 +649,7 @@ object dbHelper {
   def getAllKeys = {
     getAllKeysStmt synchronized {
       val result = extractResults(
-        getAllKeysStmt.executeQuery, {row => (row.getInt(1),row.getString(2), row.getString(3))}, None)
+        getAllKeysStmt.executeQuery, {row => (row.getLong(1),row.getString(2), row.getString(3))}, None)
 
       result._1
     }
@@ -666,10 +666,10 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def getUploadCount(userId:Int) = {
+  def getUploadCount(userId:Long) = {
     getUploadCountStmt synchronized {
       getUploadCountStmt.setTimestamp(1,timeNow)
-      getUploadCountStmt.setInt(2,userId)
+      getUploadCountStmt.setLong(2,userId)
       val result = extractResults(getUploadCountStmt.executeQuery, {row => row.getInt(1)}, None)
 
       result._1.first
@@ -687,10 +687,10 @@ object dbHelper {
     connection.prepareStatement(queryStr)
   }
 
-  def getCommentCount(userId:Int) = {
+  def getCommentCount(userId:Long) = {
     getCommentCountStmt synchronized {
       getCommentCountStmt.setTimestamp(1,timeNow)
-      getCommentCountStmt.setInt(2,userId)
+      getCommentCountStmt.setLong(2,userId)
       val result = extractResults(getCommentCountStmt.executeQuery, {row => row.getInt(1)}, None)
 
       result._1.first

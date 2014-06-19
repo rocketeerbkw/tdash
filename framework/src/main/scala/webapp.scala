@@ -307,7 +307,7 @@ object WebApp {
       // val ourSecret = keyMaker.getNew(10)
       
       if (access_token.isDefinedAt("oauth_token")) {
-        val userId = access_token("user_id").toInt
+        val userId = access_token("user_id").toLong
         val oauthToken = access_token("oauth_token")
         val oauthTokenSecret = access_token("oauth_token_secret")
 

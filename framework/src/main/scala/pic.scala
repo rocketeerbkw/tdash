@@ -680,7 +680,7 @@ object Pic {
   def postUpload (request:Request, response:HttpServletResponse):String = {
     val (cookies, loginTokens) = WebApp.processLoginCookies(request.req)
 
-    var userId:Option[Int] = None
+    var userId:Option[Long] = None
     val isMultipart = ServletFileUpload.isMultipartContent(request.req)
 
     if (isMultipart ) {
@@ -778,7 +778,7 @@ object Pic {
 
   }
 
-  private def verifyAndroidId(token:String, tokenSecret:String, verifier:String):Option[Int] = {
+  private def verifyAndroidId(token:String, tokenSecret:String, verifier:String):Option[Long] = {
     import dispatch.{Http, Request}
     import dispatch.oauth.Token
     import dispatch.oauth.OAuth._
@@ -792,7 +792,7 @@ object Pic {
       val response = http(request ># obj)
 
       val screenName = ('screen_name ! str)(response)
-      val userId = ('id ! num)(response).intValue
+      val userId = ('id ! num)(response).longValue
       dbHelper.insertNewUser(userId, screenName)
       dbHelper.insertNewAndroidOAuth(userId, token, tokenSecret, verifier)
       Some(userId)
