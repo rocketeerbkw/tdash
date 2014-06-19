@@ -6,7 +6,7 @@ case class Upload(id:Int, userId:Long, creator:String, createdAt:java.util.Date,
 case class Comment(screenName:String, comment:String)
 
 /** Evertying related to the database */
-object dbHelper {     
+object dbHelper {
   import java.sql.ResultSet
 
   private lazy val connection = java.sql.DriverManager getConnection("jdbc:postgresql:" + Config.dbName, Config.dbUser, Config.dbPass)
@@ -41,7 +41,7 @@ object dbHelper {
       SELECT  ?, ?, '1-1-1980'
       WHERE NOT EXISTS (SELECT null FROM users WHERE user_id=?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
   private lazy val updateUserNameStmt = {
@@ -50,7 +50,7 @@ object dbHelper {
       SET screen_name = ?
       WHERE user_id=?;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -82,7 +82,7 @@ object dbHelper {
       SELECT  ?, ?, ?, ?, 'today'
       WHERE NOT EXISTS (SELECT null FROM oauth_tokens where (user_id=?) AND (oauth_token=?) AND (oauth_token_secret=?));
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -110,7 +110,7 @@ object dbHelper {
       SELECT  ?, ?, ?, ?, 'today'
       WHERE NOT EXISTS (SELECT null FROM android_oauth_tokens where (user_id=?) AND (oauth_token=?) AND (oauth_token_secret=?));
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -136,7 +136,7 @@ object dbHelper {
               (id, user_id, created_at,       descr, image_name, image_type, view_count, view_logged_count, cloud, safe)
       VALUES  (?,  ?,       CURRENT_TIMESTAMP,?,    ?,          ?,          0,          0,                 false, false);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -159,7 +159,7 @@ object dbHelper {
               (upload_id, user_id, created_at,      comment_txt)
       VALUES  (?,         ?,       timestamp 'now', ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -180,7 +180,7 @@ object dbHelper {
       (user_id, follower_id)
       VALUES (?, ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -199,7 +199,7 @@ object dbHelper {
       DELETE FROM followers
       WHERE (user_id = ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -218,7 +218,7 @@ object dbHelper {
       DELETE FROM oauth_tokens
       WHERE (user_id = ?) AND (oauth_token=?) AND (oauth_token_secret=?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -238,7 +238,7 @@ object dbHelper {
       SELECT count(id)
       FROM uploads;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -256,7 +256,7 @@ object dbHelper {
       SELECT count(user_id)
       FROM oauth_tokens;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -275,7 +275,7 @@ object dbHelper {
       FROM oauth_tokens
       WHERE (oauth_token = ?) AND (oauth_token_secret = ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -296,7 +296,7 @@ object dbHelper {
       FROM android_oauth_tokens
       WHERE (oauth_token = ?) AND (oauth_token_secret = ?) AND (oauth_verifier = ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -318,7 +318,7 @@ object dbHelper {
       FROM oauth_tokens, users
       WHERE (oauth_token = ?) AND (oauth_token_secret = ?) AND (oauth_tokens.user_id = users.user_id);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -338,7 +338,7 @@ object dbHelper {
       FROM users
       WHERE (screen_name = ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -358,7 +358,7 @@ object dbHelper {
       FROM user_settings
       WHERE (user_id = ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -379,7 +379,7 @@ object dbHelper {
       FROM users
       WHERE (user_id = ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -402,7 +402,7 @@ object dbHelper {
       LIMIT 4000;
     """
     //                    ^^^^^^         Descending because the scala code then reverses the order & that is more efficient
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -423,7 +423,7 @@ object dbHelper {
       FROM users
       WHERE (id = ?);
     """
-    
+
     twinkleConnection.prepareStatement(queryStr)
   }
 
@@ -444,7 +444,7 @@ object dbHelper {
       FROM users
       WHERE (user_id = ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -465,7 +465,7 @@ object dbHelper {
       FROM uploads, users
       WHERE (id = ?) AND (users.user_id = uploads.user_id);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -487,7 +487,7 @@ object dbHelper {
       FROM oauth_tokens, users
       WHERE (oauth_token = ?) AND (oauth_token_secret = ?) AND (users.user_id = oauth_tokens.user_id);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -506,7 +506,7 @@ object dbHelper {
     val queryStr = """
       SELECT set_old_on_top(?, ?);
       """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -527,7 +527,7 @@ object dbHelper {
       SET view_count = view_count + 1, view_logged_count = view_logged_count + ?
       WHERE id=?;
       """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -546,7 +546,7 @@ object dbHelper {
       SET followerUpdated = ?
       WHERE user_id=?;
       """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -568,7 +568,7 @@ object dbHelper {
       OFFSET ?
       LIMIT ?;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -594,7 +594,7 @@ object dbHelper {
       OFFSET ?
       LIMIT ?;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -622,7 +622,7 @@ object dbHelper {
       OFFSET ?
       LIMIT ?;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -642,7 +642,7 @@ object dbHelper {
       SELECT user_id, oauth_token, oauth_token_secret
       FROM oauth_tokens;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -662,7 +662,7 @@ object dbHelper {
       FROM uploads
       WHERE ((? - created_at) < interval '1d') AND (user_id = ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -683,7 +683,7 @@ object dbHelper {
       FROM up_comments
       WHERE ((? - created_at) < interval '1d') AND (user_id = ?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -704,7 +704,7 @@ object dbHelper {
       FROM up_comments
       WHERE (upload_id=?);
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -726,7 +726,7 @@ object dbHelper {
       ORDER BY created_at DESC
       LIMIT 1000;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -745,7 +745,7 @@ object dbHelper {
       SELECT sum(total_tweet_count)
       FROM stat_clients;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -768,7 +768,7 @@ object dbHelper {
       LIMIT 100
       OFFSET ?;
     */
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -777,7 +777,7 @@ object dbHelper {
 
       // getClientInfoStmt.setInt(1, page * 100)
 
-      val result = extractResultsOrd(getClientInfoStmt.executeQuery, { row => 
+      val result = extractResultsOrd(getClientInfoStmt.executeQuery, { row =>
         val name = row.getString(2)
         val nameXML = name.replaceAll("\\\\u(....)", "&#x$1;")
 
@@ -794,7 +794,7 @@ object dbHelper {
       (client_id, rank, tweet_perc, created_at)
       SELECT  ?, ?, ?, CURRENT_TIMESTAMP
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -814,7 +814,7 @@ object dbHelper {
       SELECT max(created_at)
       FROM stat_history;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -836,7 +836,7 @@ object dbHelper {
       ORDER BY created_at DESC
       LIMIT 15;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 
@@ -878,7 +878,7 @@ object dbHelper {
       ORDER BY change DESC
       LIMIT 40;
     """
-    
+
     connection.prepareStatement(queryStr)
   }
 

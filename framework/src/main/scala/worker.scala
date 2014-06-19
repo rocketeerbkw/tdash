@@ -35,7 +35,7 @@ object Worker extends Actor {
                 val longId = id.asInstanceOf[Number].longValue
                 // insert the new
                 dbHelper.insertFollower(userId, longId)
-                
+
                 // make sure screen name is available
                 if ( ! dbHelper.getScreenNameFromUserId(longId).isDefined) {
                   needNames ::= longId

@@ -76,7 +76,7 @@ object WebApp {
   def processCookies(request:HttpServletRequest) = {
     val rawCookies = request.getCookies
 
-    val rawCookieList = 
+    val rawCookieList =
       if (rawCookies == null) Nil
       else rawCookies.toList
 
@@ -98,7 +98,7 @@ object WebApp {
   def processLoginCookies(request:HttpServletRequest) = {
     val rawCookies = request.getCookies
 
-    val rawCookieList = 
+    val rawCookieList =
       if (rawCookies == null) Nil
       else rawCookies.toList
 
@@ -173,7 +173,7 @@ object WebApp {
       setCookie("oauth_token", token._2, seconds90days, response)
       setCookie("oauth_token_secret", token._3, seconds90days, response)
     }
-      
+
   }
 
   private def setLoginCookies(access_token:Map[String,String],response:HttpServletResponse) = {
@@ -302,10 +302,10 @@ object WebApp {
 
       val http = new Http
       val access_token = (http(get_access_token(Common.consumer, Token(oauth_token.get,""), oauth_verifier.get)))
-      
+
       // Generate our own key
       // val ourSecret = keyMaker.getNew(10)
-      
+
       if (access_token.isDefinedAt("oauth_token")) {
         val userId = access_token("user_id").toLong
         val oauthToken = access_token("oauth_token")
@@ -375,7 +375,7 @@ object WebApp {
         <p><input type="submit" value="Sign out"/></p>
         </form>
         </p>
-        """ format (tokensFromCookies.flatMap(x => dbHelper.getScreenNameFromToken(x._2, x._3).map((x._1, _))).map{y => 
+        """ format (tokensFromCookies.flatMap(x => dbHelper.getScreenNameFromToken(x._2, x._3).map((x._1, _))).map{y =>
           "<input type=\"checkbox\" name=\"loginNum\" value=\"" + y._1 + "\"/>"+y._2+"<br/>"
         }).mkString
       } else {
@@ -408,7 +408,7 @@ object WebApp {
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
         <head>
-          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <link href="/css/common.css" type="text/css" rel="stylesheet" media="screen,projection" />
           <link href="/css/index.css" type="text/css" rel="stylesheet" media="screen,projection" />
         </head>
@@ -559,15 +559,15 @@ object WebApp {
       cachedValue
     }
   }
-  
+
   object userCount extends CachedValue[Int] {
     def getValue = dbHelper.getUserCount
   }
-  
+
   object imgCount extends CachedValue[Int] {
     def getValue = dbHelper.getImgCount
   }
-  
+
 
   private def getCredentials2 (request:Request, response:HttpServletResponse):String = {
     response.setHeader("Cache-Control","no-cache")
@@ -578,7 +578,7 @@ object WebApp {
      var imgCount = '%s';
     """ format (userCount.get, imgCount.get)
 
-    val authResponse = 
+    val authResponse =
       if (cookies.isDefinedAt("oauth_token") && cookies.isDefinedAt("oauth_token_secret")) {
         val oauthToken = cookies("oauth_token")
         val oauthTokenSecret = cookies("oauth_token_secret")
@@ -650,7 +650,7 @@ object WebApp {
         loginMapStr ::= (token._1.toString)
 
         val settings = dbHelper.getSettings(userIdOpt.get)
-        
+
         settingStr ::= settings.getOrElse(defaultSetting).toJSON
 
       } else {
@@ -705,7 +705,7 @@ object WebApp {
             unsetLoginCookie(token._1, response)
             ""
           }
-        } mkString (",") 
+        } mkString (",")
       ) + "];"
     }
 

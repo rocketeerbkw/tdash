@@ -9,7 +9,7 @@ import javax.servlet._
 import javax.servlet.http._
 
 case class Request(req:HttpServletRequest, headers:Map[String,String], params:Map[String,Seq[String]], appPath:String) {
-  def getParamOpt(name:String) = params.get(name).flatMap{p => 
+  def getParamOpt(name:String) = params.get(name).flatMap{p =>
     if (p.first.length > 0)
       Some(p.first)
     else None
@@ -120,8 +120,8 @@ object Utils {
 
   // make a Scala map into a JSON dictionary (object)
   def jsonify [A,B](m:Map[A,B]) = {
-    "{" + 
-    m.map(e => quote(e._1.toString) + ": " + 
+    "{" +
+    m.map(e => quote(e._1.toString) + ": " +
       (
         e._2 match {
           case b:Boolean => b
@@ -138,7 +138,7 @@ object Utils {
 
   def jsonify [A](s:Seq[A]) = {
     UnquotedString(
-      "[" + 
+      "[" +
         s.map(_.toString).reduceLeftOpt(_ + "," + _).getOrElse("") +
       "]"
     )
@@ -164,8 +164,8 @@ object Utils {
   def sequenceToXML(children: Seq[Node], pscope:NamespaceBinding, stripComment: Boolean, writer:java.io.OutputStreamWriter) {
     if (children.isEmpty) {
       return
-    } else if (children forall { 
-      case y: Atom[_] => !y.isInstanceOf[Text] 
+    } else if (children forall {
+      case y: Atom[_] => !y.isInstanceOf[Text]
       case _ => false
     }) { // add space
       val it = children.elements

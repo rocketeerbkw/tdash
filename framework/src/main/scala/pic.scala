@@ -5,7 +5,7 @@ import UtilsServlet._
 
 object Pic {
   private def getIntFromAscii(ascii:Char) = {
-    val digit = 
+    val digit =
       if ((ascii >= '0') && (ascii <= '9')) {
         (ascii - '0')
       } else if ((ascii >= 'a') && (ascii <= 'z')) {
@@ -55,7 +55,7 @@ object Pic {
    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   """
 
   val footerStdStr = """
@@ -197,7 +197,7 @@ object Pic {
         """<tr><td class="commentSrc">%s</td><td class="commentTxt">%s</td></tr>""" format (c.screenName, c.comment)
       ).reduceLeftOpt(_ + _).getOrElse("")
 
-      val newCommentForm = 
+      val newCommentForm =
         if (userScreenName.isDefined) {
           """
             <tr><td><input style="display:none;" id="uploadIdField" type="text" name="upload_id" value="%d" readonly="readonly"></input></td></tr>
@@ -220,7 +220,7 @@ object Pic {
 
       val recentUploadIds = dbHelper.getRecentUploads(uploadDetails.get.userId, uploadId, 0, 2)
 
-      val recentUploads = 
+      val recentUploads =
         if (recentUploadIds.length > 0) {
         """
           <p><em>Recent Pics from """ + uploadDetails.get.creator + """</em></p>
@@ -343,12 +343,12 @@ object Pic {
   val maxCommentsPerDay = 20
 
   val safeUploadKey = 3789
-    
+
   def getUploadStart (request:Request, response:HttpServletResponse):String = {
     val (cookies, loginTokens) = WebApp.processLoginCookies(request.req)
     val embedded = request.getParamOpt("embed").isDefined
 
-    val loginIdOpt = 
+    val loginIdOpt =
       if (embedded) {
         request.getIntParamOpt("loginId").orElse(if (loginTokens.length == 1) Some(loginTokens.first._1) else None)
       } else {
@@ -363,7 +363,7 @@ object Pic {
           </head>
           <body><p>You are probably running an older version of the client.</p><p>Please hit refresh/reload in your browser now!</p><p>The tDash version should be <b>3.3</b> or higher</p>""" +
       footerStdStr
-      
+
     } else {
       val loginId = loginIdOpt.getOrElse(-1)
       val loginToken = loginTokens.find(_._1 == loginId)
@@ -444,7 +444,7 @@ object Pic {
         val userId = dbHelper.getUserIdFromToken(token, tokenSecret)
         val picCount = dbHelper.getUploadCount(userId.get)
 
-        val uploadForm = 
+        val uploadForm =
           if (picCount > maxUploadsPerDay) {
             """
               <div id="uploadForm">
@@ -514,7 +514,7 @@ object Pic {
   val homeDir = System.getProperty("user.home")
   val maxSizeBytes = (512 * 1024)
 
-  
+
   import java.awt._
   import java.awt.image._
   // This is the simple method. Very good results but slower
@@ -535,7 +535,7 @@ object Pic {
     val targetHeight = (h * scaleFactor).toInt
     val targetWidth = (w * scaleFactor).toInt
 
-    val imgType = 
+    val imgType =
       // if(img.getTransparency() == Transparency.OPAQUE)
         BufferedImage.TYPE_INT_RGB
       // else
@@ -546,7 +546,7 @@ object Pic {
     // Use multi-step technique: start with original size, then
     // scale down in multiple passes with drawImage()
     // until the target size is reached
-    
+
     do {
       if (w > targetWidth) {
         w /= 2
@@ -787,8 +787,8 @@ object Pic {
     try {
       val request = (new Request("https://api.twitter.com/1/account/verify_credentials.json")) <@ (Common.androidConsumer, Token(token, tokenSecret), verifier)
 
-      
-      val http = new Http 
+
+      val http = new Http
       val response = http(request ># obj)
 
       val screenName = ('screen_name ! str)(response)
@@ -798,7 +798,7 @@ object Pic {
       Some(userId)
 
     } catch {
-      case e:Exception => 
+      case e:Exception =>
         e.printStackTrace
       None
     }

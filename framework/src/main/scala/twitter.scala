@@ -25,7 +25,7 @@ object TwitterHelper {
       import dispatch.oauth.OAuth._
       val http = new Http
       val request = (new Request(Twitter.host / "1/followers/ids.json")) <@ (Common.consumer, oauthToken)
-      http(request >> {is => 
+      http(request >> {is =>
 
         // val reader = Common.urlReader(url)
         val reader = new BufferedReader(new InputStreamReader(is))

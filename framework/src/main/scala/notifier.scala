@@ -77,7 +77,7 @@ object Notifier extends Actor {
         transport.close
         println
         println("sending failed exception (%d trial):" format (retryCount))
-        println(x) 
+        println(x)
         val invalidEmails = x.getInvalidAddresses.toList.map(_.toString)
         println("Invalid email addresses:" + invalidEmails)
         val validUnsentEmails = x.getValidUnsentAddresses.toList.map(_.toString)
@@ -94,7 +94,7 @@ object Notifier extends Actor {
         transport.close
         println
         println("messaging exception (%d trial):" format (retryCount))
-        println(x) 
+        println(x)
         if (retryCount < maxRetries) {
           val delay = (retryCount * 5) + (System.currentTimeMillis % 7).toInt
           println("retrying after %d seconds" format (delay))
@@ -127,7 +127,7 @@ object Notifier extends Actor {
           val newName = dbHelper.getScreenNameFromToken(newLoginStr, newLoginSecret).getOrElse("____UNKNOWN____")
 
           val urls = (newName :: screenNames).map("http://twitter.com/"+_).mkString("\n")
-          
+
           sendMessage(adminList, "multi: " + newName, (new java.util.Date()).toString + "\n\n" + urls, None)
         }
         case Purged(userIds) => {

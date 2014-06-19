@@ -111,7 +111,7 @@ object Common {
     var users = List[User]()
 
     try {
-      http(request >> {is => 
+      http(request >> {is =>
 
         val reader = new BufferedReader(new InputStreamReader(is))
 
@@ -121,7 +121,7 @@ object Common {
 
           users = detailsAll.map{details =>
             val createdDate = dateFormatter.parse(details("created_at").toString)
-            
+
             User(
               details("id").toString.toLong,
               details("screen_name").toString,
@@ -162,7 +162,7 @@ object Common {
           val details = JSON.parse(reader).get.asInstanceOf[Map[String,Any]]
 
           val createdDate = dateFormatter.parse(details("created_at").toString)
-          
+
           Some(User(
             details("id").toString.toLong,
             details("screen_name").toString,

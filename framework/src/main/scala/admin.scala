@@ -8,7 +8,7 @@ import UtilsServlet._
 object Admin {
 
   val errorStr = "{success:false}"
-  
+
   def postPurge (request:Request, response:HttpServletResponse):String = {
     val keyIn = request.getParamOpt("key").getOrElse("")
     println(keyIn)
@@ -46,7 +46,7 @@ object AdminWorker extends Actor {
           dbKeys foreach {key =>
             // check if valid
             val request = (new Request(Twitter.host / "1/account/verify_credentials.json")) <@
-              (Common.consumer, dispatch.oauth.Token(key._2,key._3)) 
+              (Common.consumer, dispatch.oauth.Token(key._2,key._3))
 
             var done = false
             var retryCount = 0

@@ -75,7 +75,7 @@ object statCache {
 
         if (lastHistUpdate == 0L) {
           lastHistUpdate = dbHelper.getMaxHistTimestamp.map(_.getTime).getOrElse(0L)
-        } 
+        }
 
         if ((now - lastHistUpdate) > 24*60*60*1000L) {
           println("Updating history")
@@ -178,7 +178,7 @@ object Stats {
         </td>
         <td class="contentTd">
     """ format (statCache.tDashRank, statCache.totalClients)) +
-    """<table id="statTbl"><thead><tr><th>Present rank</th><th>Name</th><th>% of total tweets</th><th>Used for replies</th><th>Change in rank</th></tr></thead><tbody>""" + 
+    """<table id="statTbl"><thead><tr><th>Present rank</th><th>Name</th><th>% of total tweets</th><th>Used for replies</th><th>Change in rank</th></tr></thead><tbody>""" +
     statCache.hotClientsStr +
 """
           </tbody></table>""" +
@@ -244,19 +244,19 @@ object Stats {
       <link href="/css/common.css" type="text/css" rel="stylesheet" media="screen,projection" />
       <link href="/css/stats.css" type="text/css" rel="stylesheet" media="screen,projection" />
       <script src="/scripts/raphael-combined.js" type="text/javascript"></script>
-      <script type="text/javascript">                                                                                      
+      <script type="text/javascript">
         var rH = [%s];
-       window.onload = function() {                                                                                       
-         var r = Raphael("graphHolder"),                                                                                       
-             fin = function () {                                                                                          
-               this.flag = r.g.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);                   
-             },                                                                                                           
-             fout = function () {                                                                                         
-               this.flag.animate({opacity: 0}, 200, function () {this.remove();});                                        
-             };                                                                                                           
-                                                                                                                          
-         r.g.barchart(10, 10, 300, 220, [rH]).hover(fin, fout);                        
-       }                                                                                                                  
+       window.onload = function() {
+         var r = Raphael("graphHolder"),
+             fin = function () {
+               this.flag = r.g.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
+             },
+             fout = function () {
+               this.flag.animate({opacity: 0}, 200, function () {this.remove();});
+             };
+
+         r.g.barchart(10, 10, 300, 220, [rH]).hover(fin, fout);
+       }
      </script>
       <meta content="Detailed report of Twitter application %s" name="description" />
       <meta content="Twitter application client detailed report %s" name="keywords" />
@@ -335,7 +335,7 @@ object Stats {
         val encodedQuery = scala.xml.parsing.ConstructingParser.fromSource(scala.io.Source.fromString("<dummy>"+queryTxt+"</dummy>"), false).document.apply(0).text
 
         val decodedQuery = encodedQuery.toLowerCase.map(x => if (x > 256) "\\u%x" format x.toInt else "%c" format x).reduceLeft(_ + _)
-        
+
         val results =
           if(queryTxt.length > 2) {
             val matches = statCache.stats.filter(_._1.name.toLowerCase contains decodedQuery).map(x => statCache.renderStat(x, false, None))
@@ -396,7 +396,7 @@ object Stats {
         </td>
         <td class="contentTd">
     """ format (statCache.tDashRank, statCache.totalClients)) +
-    """<table id="statTbl"><thead><tr><th>Rank</th><th>Name</th><th>% of total tweets</th><th>Used for replies</th></tr></thead><tbody>""" + 
+    """<table id="statTbl"><thead><tr><th>Rank</th><th>Name</th><th>% of total tweets</th><th>Used for replies</th></tr></thead><tbody>""" +
     matchData.reduceLeftOpt(_ + _).getOrElse("<td>No matches found!</td>") +
 """
           </tbody></table>""" +
