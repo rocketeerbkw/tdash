@@ -26,7 +26,7 @@ function createMyNotification(title, content) {
       /*
         } else if (options.notificationType == 'html') {
            return window.webkitNotifications.createHTMLNotification('http://someurl.com');
-        } 
+        }
       */
     }
   }
@@ -274,7 +274,7 @@ var dash = new function () {
         break;
       }
     }
-    
+
     if (unReadFriend) {
       dash.navClick(unReadFriend.id);
       return true;
@@ -293,7 +293,7 @@ var dash = new function () {
         break;
       }
     }
-    
+
     if (unReadList) {
       dash.listClick(unReadList.id);
       return true;
@@ -313,7 +313,7 @@ var dash = new function () {
         break;
       }
     }
-    
+
     if (unReadFolder) {
       dash.folderClick(unReadFolder);
       return true;
@@ -331,7 +331,7 @@ var dash = new function () {
         break;
       }
     }
-    
+
     if (unReadTrend) {
       dash.trendClick(unReadTrend);
       return true;
@@ -598,8 +598,8 @@ var dash = new function () {
     "yep.it", "zi.ma", "zurl.ws", "chilp.it",
     "notlong.com", "qlnk.net", "trim.li", "url4.eu"
     ];
-            
-    
+
+
   /*
   function binSearchNonRecurse(key, store) {
     var min = 0, max = store.length - 1, mid;
@@ -812,11 +812,11 @@ var dash = new function () {
         var tweetId = tweet.id_str ? tweet.id_str : tweet.id;
 
         if (currTweetSelection == tweetId) {
-         classStr += ' selected'; 
-         indStr += ' indSel'; 
+         classStr += ' selected';
+         indStr += ' indSel';
          foundCurrSelection = true;
         } else if (tweet.tdashRead) {
-         indStr += ' indRead'; 
+         indStr += ' indRead';
         }
         var createdMillis = Date.parse(tweet.created_at);
         var tweetText = tweet.retweeted_status ? '<span class="quickRTLabel">Quick RT @'+tweet.retweeted_status.user.screen_name + "</span>&nbsp;" + tweet.retweeted_status.text : tweet.text;
@@ -923,7 +923,7 @@ var dash = new function () {
     if (tweet.id_str) {
       addTweetCache(tweet);
       updateReplyToData(tweet, n);
-      
+
       // remove from pipeline
       for (var i = replyToPipeline.length; i--;) {
         if (replyToPipeline[i] == tweet.id_str) {
@@ -1186,7 +1186,7 @@ var dash = new function () {
           }
         }
       }
-      // apparently the best way to expand an array 
+      // apparently the best way to expand an array
       // see http://stackoverflow.com/questions/1374126/how-to-expand-javascript-array-with-another-array
       list.unshift.apply(list,newTweets);
     }
@@ -1234,7 +1234,7 @@ var dash = new function () {
         if (displayedTweetIds[i] == currTweetSelection) {
           foundMatch = parseInt(i);
           break;
-        } 
+        }
       }
     }
 
@@ -1276,7 +1276,7 @@ var dash = new function () {
       if (displayedTweetIds[i] == currTweetSelection) {
         foundMatch = parseInt(i);
         break;
-      } 
+      }
     }
 
     // Trick alert: when foundMatch is equal to displayedTweetIds.length we select the last tweet
@@ -1424,7 +1424,7 @@ var dash = new function () {
             break;
 
           case 'o':
-          case 'O':  
+          case 'O':
             CxBrowserStopProp(e);
             // open URL
             var links = $(".selected .text a");
@@ -1750,7 +1750,7 @@ var dash = new function () {
       totalFolderUnread += currUser.folderData[i].unread;
     }
 
-    
+
     $("#sortOrderSelect").val(settings[currLogin].oldOnTop?"oldTop":"newTop");
     updateReader();
 
@@ -1792,7 +1792,7 @@ var dash = new function () {
   var updateVal = '';
 
   function makeOAuthForm(message, prefix) {
-    OAuth.completeRequest(message, oauthAccessor[currLogin]);        
+    OAuth.completeRequest(message, oauthAccessor[currLogin]);
     OAuth.SignatureMethod.sign(message, oauthAccessor[currLogin]);
 
     // set the form params
@@ -1967,7 +1967,7 @@ var dash = new function () {
       case "sync":
         var dateScript = $('<script/>').attr('src', '/scripts/jquery.date_input.js').appendTo('head');
 
-        var dateScriptTimer = setInterval(function(){ 
+        var dateScriptTimer = setInterval(function(){
           if (window.DateInput !== undefined) {
             clearInterval(dateScriptTimer);
             dateScript.remove();
@@ -2022,7 +2022,7 @@ var dash = new function () {
               }
             }
           }
-          
+
           $.each(tweetCache, syncAllTweets);
           $("#syncDlg").html('<h2>Done!</h2><p>'+countMarked+' tweets were marked as read.</p><p>Press [Esc] to close</p>');
           updateNav();
@@ -2326,7 +2326,7 @@ var dash = new function () {
 
       for (i in response.trends) {
         var trend = response.trends[i];
-        // if (trendReadCache[trend.name] || (prevTrendCache[trend.name] && prevTrendCache[trend.name].tDashRead)) 
+        // if (trendReadCache[trend.name] || (prevTrendCache[trend.name] && prevTrendCache[trend.name].tDashRead))
         if (trendReadCache[trend.name] || trendHistoryCache[trend.name]) {
           trend.tdashRead = true;
           trendHistoryCache[trend.name] = true;
@@ -2396,7 +2396,7 @@ var dashOauth = new function () {
       method: "GET",
       parameters: params
     };
-    OAuth.completeRequest(message, accessor);        
+    OAuth.completeRequest(message, accessor);
     OAuth.SignatureMethod.sign(message, accessor);
     var builtURL = url + "?" + OAuth.formEncode(message.parameters);
 

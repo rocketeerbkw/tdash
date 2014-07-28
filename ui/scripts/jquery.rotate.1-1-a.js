@@ -64,7 +64,7 @@ var fnRotate = function(canvas,rotation){
 
     canvas.style.filter = "progid:DXImageTransform.Microsoft.Matrix(M11="+costheta+",M12="+(-sintheta)+",M21="+sintheta+",M22="+costheta+",SizingMethod='auto expand')";
   }
-  
+
   else {
     var canvas = document.createElement('canvas');
     if (!p.oImage) {

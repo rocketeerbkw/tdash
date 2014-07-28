@@ -10,7 +10,7 @@ var dashOauth = new function () {
       method: "GET",
       parameters: params
     };
-    OAuth.completeRequest(message, accessor);        
+    OAuth.completeRequest(message, accessor);
     OAuth.SignatureMethod.sign(message, accessor);
     var builtURL = url + "?" + OAuth.formEncode(message.parameters);
     // var builtURL = url + "?" + $.param(params) + '&' + OAuth.formEncode(message.parameters);
@@ -71,7 +71,7 @@ $(document).ready(function() {
         if (response.screen_name) {
           if ($("#loggedInInfo").length == 0) {
             // $("#badges").html('<a target="_blank" href="http://oneforty.com/item/tdash?utm_source=badge"><img src="http://cdn.oneforty.com/ext/badge-red.png" width="120" height="120" style="border: 0px" alt="Review tDash on oneforty"></img></a>');
-    
+
             // we are the first
             var helperStr = '<div id="loggedInInfo"><p>Welcome back <b id="names">' + response.screen_name + '</b> !</p>';
             helperStr += '<p><a href="/oauth/viewPower">Proceed to dashboard?</a></p>';

@@ -1,9 +1,9 @@
 /*
-@font-face {                                                                                                             
-font-family: 'MEgalopolisRegular';                                                                                     
-src: url('/images/megalopolis-webfont.eot'); 
+@font-face {
+font-family: 'MEgalopolisRegular';
+src: url('/images/megalopolis-webfont.eot');
 src: local('MEgalopolisRegular'), url('/images/megalopolis-webfont.woff') format('woff'), url('/images/megalopolis-webfont.ttf') format('truetype'), url('/images/megalopolis-webfont.svg#webfont4EEtJlXE') format('svg');
-}  
+}
 */
 
 #content {

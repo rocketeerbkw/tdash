@@ -4,18 +4,18 @@ if (typeof(BitlyApi) == 'undefined')
 if (typeof(BitlyCB) == 'undefined')
     var BitlyCB = {}; // global namespace for your callback methods. Allows you to define callabacks from within other method calls.
 
-BitlyApi.loadScript = function(_src) { 
-  var e = document.createElement('script'); 
-  e.setAttribute('language','javascript'); 
+BitlyApi.loadScript = function(_src) {
+  var e = document.createElement('script');
+  e.setAttribute('language','javascript');
   e.setAttribute('type', 'text/javascript');
-  e.setAttribute('src',_src); document.body.appendChild(e); 
+  e.setAttribute('src',_src); document.body.appendChild(e);
 };
 
-BitlyApi.loadCss = function(u) { 
-  var e = document.createElement('link'); 
-  e.setAttribute('type', 'text/css'); 
-  e.setAttribute('href', u); 
-  e.setAttribute('rel', 'stylesheet'); 
+BitlyApi.loadCss = function(u) {
+  var e = document.createElement('link');
+  e.setAttribute('type', 'text/css');
+  e.setAttribute('href', u);
+  e.setAttribute('rel', 'stylesheet');
   e.setAttribute('media', 'screen');
   try {
     document.getElementsByTagName('head')[0].appendChild(e);
@@ -28,11 +28,11 @@ BitlyApi.call = function(method, params, callback_method_name) {
     var s = "http://api.bit.ly/" + method;
     var url_args = [];
     if (callback_method_name) url_args.push("callback=" + callback_method_name);
-    
+
     for (var name in params) {
         url_args.push(name + "=" + encodeURIComponent(params[name]));
     };
-    
+
     s += "?" + url_args.join("&");
     BitlyApi.loadScript(s);
 };
@@ -79,8 +79,8 @@ BitlyApiClient.prototype.loadModules = function(module_names, callback_method_na
     try {
         BitlyApi.loadCss("http://bit.ly/static/css/javascript-modules.css");
     } catch(e) {
-        BitlyClient.addPageLoadEvent(function(){ 
-            BitlyApi.loadCss("http://bit.ly/static/css/javascript-modules.css"); 
+        BitlyClient.addPageLoadEvent(function(){
+            BitlyApi.loadCss("http://bit.ly/static/css/javascript-modules.css");
         });
     }
 };
@@ -170,7 +170,7 @@ BitlyApiClient.prototype.toggle = function(el) {
 
 /*
 # API
-    
+
 Generic API caller for more advanced API usage. Allows you to specify extra params for method calls with options. Eg, you can call the /info API and ask for a subset of data using the 'keys' param.
 */
 BitlyApiClient.prototype.call = function(method, params, callback_method_name) {
@@ -208,7 +208,7 @@ BitlyApiClient.prototype.stats = function(bitly_hash_or_url, callback_method_nam
 
 /*
 # TESTS
-    
+
 */
 BitlyApiClient.prototype.shortenTest = function() {
     this.shorten(document.location, 'shortenTestCB');
@@ -264,7 +264,7 @@ function statsTestCB(data) {
 
 /*
 # INSTANTIATE CLIENT
-    
+
 */
 var BitlyClient = new BitlyApiClient();
 

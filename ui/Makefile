@@ -34,7 +34,7 @@ compile: all scripts
 	rm -rf ${STATIC_DIR}/images
 	rm	-f ${STATIC_DIR}/*.html
 	mkdir -p ${STATIC_DIR}/usrspc
-ifndef DEBUG	
+ifndef DEBUG
 	mkdir -p ${STATIC_DIR}/css/
 	${COMPRESS_CMD} css/common.css > ${STATIC_DIR}/css/common.css
 	${COMPRESS_CMD} css/index.css > ${STATIC_DIR}/css/index.css
@@ -52,6 +52,6 @@ endif
 	cp *.ico ${STATIC_DIR}
 	mkdir -p ${SERVLET_DIR}
 	cp ErrorPage.html ${SERVLET_DIR}
-	
+
 clean:
-	
+
