@@ -397,8 +397,8 @@ var dash = new function () {
   function formatCount(num) {return ((num > 0) ? ' ('+num+')' : '');};
 
   function friendCompare(f1, f2) {
-    var s1 = friends[f1].screen_name,
-        s2 = friends[f2].screen_name;
+    var s1 = friends[f1].screen_name.toLowerCase(),
+        s2 = friends[f2].screen_name.toLowerCase();
     return (s1 < s2) ? -1 : ((s1 == s2) ? 0 : 1);
   }
 
