@@ -265,7 +265,11 @@ object Dash {
     val (cookies, loginTokens) = WebApp.processLoginCookies(request.req)
     val userId = loginTokens.flatMap(token=>dbHelper.getUserIdFromToken(token._2, token._3)).firstOption
     val userScreenName = userId.map(dbHelper.getScreenNameFromUserId(_))
-    val schemeId = cookies.get("scheme_id").map(_.toInt).getOrElse(CSS.defaultScheme)
+    val themeWhitelist =  Array ("classic", "sea", "safari", "papaya", "subway", "helveti", "helvetiblue")
+    var theme = cookies.get("theme").getOrElse("classic")
+    if (!(themeWhitelist contains theme)) {
+      theme = "classic"
+    }
 
     // if (userId.isDefined) {
       val out = response.getWriter
@@ -278,7 +282,7 @@ object Dash {
       }
 
       out println ("""<link rel="stylesheet" href="/css/date_input.css" type="text/css"/>""")
-      out println ("""<link id="cssLink" href="/oauth/getCss?scheme_id=%d" type="text/css" rel="stylesheet" media="screen,projection" />""" format (schemeId))
+      out println ("""<link id="cssLink" href="/css/themes/%s.css" type="text/css" rel="stylesheet" media="screen,projection" />""" format (theme))
 
       if (loginTokens.length > 0) {
         htmlBody2

@@ -116,6 +116,8 @@ object WebApp {
         map += ("multipleLoginOk" -> cookie.getValue)
       } else if (name == "scheme_id") {
         map += ("scheme_id" -> cookie.getValue)
+      } else if (name == "theme") {
+        map += ("theme" -> cookie.getValue)
       } else if (name startsWith "mauth") {
         val cookieContents = cookie.getValue.split(",")
         val id = name.drop(5).toInt
