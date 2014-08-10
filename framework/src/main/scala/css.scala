@@ -4,7 +4,7 @@ import javax.servlet.http._
 import Utils._
 import UtilsServlet._
 
-case class Scheme(name:String, colors:Array[String], background:String, statusBackground:String)
+case class Scheme(name:String, id:String, colors:Array[String], background:String, statusBackground:String)
 
 object CSS {
 
@@ -15,7 +15,7 @@ object CSS {
       sel ind,        read ind,     "bfbfea", "900",
       modal bkg,    default_body
 */
-  val ClassicScheme = Scheme("Classic",
+  val ClassicScheme = Scheme("Classic", "classic",
     Array(
       "c8c8c8", "dbdbff", "707784", "fafafa",
       "999",    "fafafa", "a8b4c8", "444",
@@ -24,7 +24,7 @@ object CSS {
       "000",    "999",    "000",    "000"),
     "url('/images/noise2.jpg')", "")
 
-  val SeaScheme = Scheme("The Sargasso Sea",
+  val SeaScheme = Scheme("The Sargasso Sea", "sea",
     Array(
       "0b486b", "f3ffff", "2c7385", "c9e8e8",
       "99a9a9", "e7ffff", "346179", "3f5059",
@@ -34,7 +34,7 @@ object CSS {
     // "#d9f4f4")
     "url('/images/boating.png')", "")
 
-  val SafariScheme = Scheme("African Safari",
+  val SafariScheme = Scheme("African Safari", "safari",
     Array(
       "033649", "033649", "99773d", "fffaf0",
       "736a5a", "decdad", "034b65", "596982",
@@ -43,7 +43,7 @@ object CSS {
       "000",    "736a5a", "034b65", "000"),
     "#f0e5d2", "")
 
-  val PapayaScheme = Scheme("Papaya Sundae",
+  val PapayaScheme = Scheme("Papaya Sundae", "papaya",
     Array(
       "C4574E", "e5cada", "782e59", "fffaf0",
       "736a5a", "e7dcbe", "d88057", "E0CFA7",
@@ -52,7 +52,7 @@ object CSS {
       "000",    "736a5a", "782e59", "000"),
     "#F3EBD6", "")
 
-  val SubwayScheme = Scheme("Subway",
+  val SubwayScheme = Scheme("Subway", "subway",
     Array(
       "34532e", "1e1e44", "a12f1c", "000",
       "182615", "182615", "57994a", "182615",
@@ -68,7 +68,7 @@ object CSS {
     """background: rgb(0, 0, 0);
        background: rgba(40, 10, 10, 0.8);""")
 
-  val HelvetiScheme = Scheme("Helveti",
+  val HelvetiScheme = Scheme("Helveti", "helveti",
     Array(
       "eeeeee", "eeeeee", "888888", "eeeeee",
       "888888", "eeeeee", "888888", "eeeeee",
@@ -78,7 +78,7 @@ object CSS {
     "#fbfbfb",
     "")
 
-  val HelvetiBlueScheme = Scheme("Helveti Blue",
+  val HelvetiBlueScheme = Scheme("Helveti Blue", "helvetiblue",
     Array(
       "eeeeee", "eeeeee", "888888", "eeeeee",
       "888888", "eeeeee", "888888", "eeeeee",
@@ -112,10 +112,11 @@ object CSS {
     <meta content="Twitter browser client theme color configure" name="keywords" />
     <link href="/css/common.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <script type="text/javascript">
-      function clickScheme(id) {
+      function clickScheme(theme) {
         if (top) {
           if (top.changeCSS) {
-            top.changeCSS('/oauth/getCss?scheme_id='+id);
+            top.changeCSS('/css/themes/' + theme + '.css');
+            top.$.cookie('theme', theme);
           }
         }
       }
@@ -127,49 +128,19 @@ object CSS {
   def getChooseTheme (request:Request, response:HttpServletResponse):String = {
     val (cookies,loginTokens) = WebApp.processLoginCookies(request.req)
 
-    val prevSchemeId = cookies.get("scheme_id").map(_.toInt).getOrElse(defaultScheme)
-    // val prevSchemeId = request.getIntParamOpt("scheme_id").getOrElse(0)
+    val theme = cookies.get("theme").getOrElse("classic")
 
-    val isEmbedded = request.getParamOpt("embed").isDefined
-
-    val embeddedStr =
-      if (isEmbedded)
-        """<input type="hidden" name="embed" value="true"/>"""
-      else ""
-
-    htmlStdStr + htmlBody1 + """<form method="post" action="/oauth/themeSave">""" + embeddedStr + """
-  <div style="float:right"><input style="margin:1em 2em;" type="submit" value="Save Theme"/></div>
-  <div style="overflow-y:scroll;height:450px;"><table style="width:100%;"><tbody>""" +
+    htmlStdStr + htmlBody1 + """<form>
+      <div style="overflow-y:scroll;height:450px;"><table style="width:100%;"><tbody>""" +
     schemeMap.zipWithIndex.map(scheme =>
-      """<tr><td style="margin:2px;"><input type="radio" onclick="clickScheme(%d);" name="scheme_id" id="choice_%d" value="%d" %s/><label for="choice_%d">%s</label></td><td style="margin:2px 6px;">%s</td></tr>""" format (
-        scheme._2, scheme._2, scheme._2, if (scheme._2 == prevSchemeId) "checked" else "",
+      """<tr><td style="margin:2px;"><input type="radio" onclick="clickScheme('%s');" name="scheme_id" id="choice_%d" value="%d" %s/><label for="choice_%d">%s</label></td><td style="margin:2px 6px;">%s</td></tr>""" format (
+        scheme._1.id, scheme._2, scheme._2, if (scheme._2 == theme) "checked" else "",
         scheme._2, scheme._1.name, renderSchemePreview(scheme._1)
       )
     ).mkString +
   """</tbody></table></div></form>
   </body>
 </html>"""
-  }
-
-  def postThemeSave (request:Request, response:HttpServletResponse):String = {
-    val newSchemeId = request.getIntParamOpt("scheme_id").getOrElse(defaultScheme)
-    val isEmbedded = request.getParamOpt("embed").isDefined
-
-    val embeddedStr =
-      if (isEmbedded)
-        """<p>You can now close this window."""
-      else ""
-
-    WebApp.setCookie("scheme_id", newSchemeId.toString, WebApp.seconds90days, response)
-
-    htmlStdStr + """
-      <link href="/css/common.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    </head>
-    <body>
-      <h1>Saved</h1>
-      <p>Your chosen theme (%s) has been associated with this computer.</p>%s
-    </body>
-  </html>""" format (schemeMap(newSchemeId).name, embeddedStr)
   }
 }
 

@@ -45,8 +45,7 @@ object WebApp {
   val postHandlerMap = List[Tuple2[String,Bootup#UnitHandler]] (
     "addComment" -> renderHtmlDynamic (Pic.postAddComment) _,
     "purgeBadCreds" -> renderJsonDynamic (Admin.postPurge) _,
-    "settingTimeOrder" -> renderJsonDynamic (Dash.postSettingTimeOrder) _,
-    "themeSave" -> renderHtmlDynamic (CSS.postThemeSave) _
+    "settingTimeOrder" -> renderJsonDynamic (Dash.postSettingTimeOrder) _
   )
 
   val postRawHandlerMap = List[Tuple2[String,Bootup#UnitHandler]] (
