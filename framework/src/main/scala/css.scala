@@ -534,6 +534,26 @@ cursor:pointer;
 background:#"""+colors(6)+""";;;
 }
 
+#navFriends {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border-collapse: collapse;
+}
+
+#navFriends tr {
+  font-size: 80%;
+  cursor: pointer;
+  margin: 0;
+  padding: 3px;
+  color: #""" + colors(16) + """;
+}
+
+#navFriends td {
+  margin: 0;
+  padding: 0;
+}
+
 .linkNoDec {
 text-decoration:none;
 border:none;

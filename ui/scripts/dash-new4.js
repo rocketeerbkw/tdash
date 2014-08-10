@@ -394,12 +394,41 @@ var dash = new function () {
     updateNav();
   }
 
+  this.sortFriends = function() {
+    sortedFriends.sort(friendCompare);
+    updateNav();
+  }
+
+  this.changeSort = function(by, dir) {
+    $('#navFriends').attr('data-sort-by', by);
+    $('#navFriends').attr('data-sort-dir', dir);
+    this.sortFriends();
+  }
+
   function formatCount(num) {return ((num > 0) ? ' ('+num+')' : '');};
 
   function friendCompare(f1, f2) {
-    var s1 = friends[f1].screen_name.toLowerCase(),
-        s2 = friends[f2].screen_name.toLowerCase();
-    return (s1 < s2) ? -1 : ((s1 == s2) ? 0 : 1);
+    // TODO: Don't grab attributes in this sort function
+    var sort_by = $('#navFriends').attr('data-sort-by');
+    var sort_dir = $('#navFriends').attr('data-sort-dir');
+
+    if (sort_by == 'name') {
+      var s1 = friends[f1].screen_name.toLowerCase(),
+          s2 = friends[f2].screen_name.toLowerCase();
+    }
+    else {
+      var s1 = friends[f1].tdashUnread,
+          s2 = friends[f2].tdashUnread;
+    }
+
+    if (sort_dir == "asc") {
+      var sort = (s1 < s2) ? -1 : ((s1 == s2) ? 0 : 1);
+    }
+    else {
+      var sort = (s1 > s2) ? -1 : ((s1 == s2) ? 0 : 1);
+    }
+
+    return sort;
   }
 
   function updateNav() {
@@ -412,13 +441,34 @@ var dash = new function () {
       for (var i in sortedFriends) {
         var friend = friends[sortedFriends[i]];
         if (friend.tdashUnread > 0) {
-          navUnreadStr += '<p onclick="dash.navClick('+friend.id+')" class="navElem '+(navSelection==friend.id?'navSel':'')+'">'+friend.screen_name+' ('+friend.tdashUnread+')</p>';
+          navUnreadStr += '<tr onclick="dash.navClick('+friend.id+')" class="'+(navSelection==friend.id?'navSel':'')+'"><td>'+friend.screen_name+'</td><td>'+friend.tdashUnread+'</td></tr>';
         } else {
           navReadStr += '<p onclick="dash.navClick('+friend.id+')" class="navElem navRead '+(navSelection==friend.id?'navSel':'')+'">'+friend.screen_name+' </p>';
         }
       }
+      // TODO: table sort plugin or anything better than this?
+      if (navUnreadStr.length > 0) {
+        // Build sorting row
+        var sort_row = '';
+        var sort_by = $('#navFriends').attr('data-sort-by');
+        var sort_dir = $('#navFriends').attr('data-sort-dir');
+        var new_sort_dir = sort_dir == 'asc' ? 'desc' : 'asc';
+        sort_row += '<tr>';
+        if (sort_by == 'name') {
+          sort_row += '<td onclick="dash.changeSort(\'name\', \'' + new_sort_dir + '\')">';
+          sort_row += (sort_dir == 'asc') ? '/\\' : '\\/';
+          sort_row += '</td><td onclick="dash.changeSort(\'unread\', \'' + new_sort_dir + '\')"></td>';
+        }
+        else {
+          sort_row += '<td onclick="dash.changeSort(\'name\', \'' + new_sort_dir + '\')"></td><td onclick="dash.changeSort(\'unread\', \'' + new_sort_dir + '\')">';
+          sort_row += (sort_dir == 'asc') ? '/\\' : '\\/';
+          sort_row += '</td>';
+        }
+        sort_row += '</tr>';
+        navUnreadStr = sort_row + navUnreadStr;
+      }
       if (navReadStr.length > 0) {
-        navReadStr = '<div id="moreFriends"><div id="moreButt" onclick="toggleMoreFriends()">'+(showMore?'Less':'More')+'</div><div'+(showMore?'':' style="display:none"')+' id="moreFrndContent">'+navReadStr+'</div></div>';
+        navReadStr = '<tr id="moreFriends"><td colspan="2" id="moreButt" onclick="toggleMoreFriends()">'+(showMore?'Less':'More')+'</td></tr><tr id="moreFrndContent"' + (showMore ? '' : ' style="display:none"') + '><td colspan="2">'+navReadStr+'</td></tr>';
       }
       $('#navFriends').html(navUnreadStr + navReadStr);
       $('#navList').empty();

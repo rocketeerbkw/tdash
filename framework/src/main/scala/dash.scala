@@ -151,7 +151,7 @@ object Dash {
             <div class="paddedLeft">
               <div class="navTab">
                 <p id="navHeadFriends" class="tabHead" onclick="dash.changeMode(0,true)">Friends</p>
-                <div id="navFriends"></div>
+                <table id="navFriends" data-sort-by="name" data-sort-dir="asc"></table>
               </div>
               <div class="navTab">
                 <p id="navHeadList" class="tabHead" onclick="dash.changeMode(2, true)">Lists</p>
