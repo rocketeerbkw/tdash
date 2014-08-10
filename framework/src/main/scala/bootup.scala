@@ -226,19 +226,6 @@ object UtilsServlet {
     hndlr(request,response)
   }
 
-  def renderCSS(output:String)(request:Request, response:HttpServletResponse):Unit = {
-    response.setContentType("text/css")
-    val out = response.getWriter
-    out println output
-  }
-
-  def renderCSSDynamic(hndlr:Bootup#Handler)(request:Request, response:HttpServletResponse):Unit = {
-    val output  = hndlr(request, response)
-
-    renderCSS(output)(request,response)
-  }
-
-
   def renderHtml(output:String)(request:Request, response:HttpServletResponse):Unit = {
     response.setContentType("text/html")
     val out = response.getWriter

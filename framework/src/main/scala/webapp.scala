@@ -28,7 +28,6 @@ object WebApp {
     "credsall.js" -> renderJSDynamic (getAllCredentials) _,
     "credsall2.js" -> renderJSDynamic (getAllCredentials2) _,
     "viewPower" -> renderHtmlDynamic (Dash.getViewPower) _,
-    "chooseTheme" -> renderHtmlDynamic (CSS.getChooseTheme) _,
 
     // pic related
     "uploadStart" -> renderHtmlDynamic (Pic.getUploadStart) _,
