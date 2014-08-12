@@ -17,3 +17,5 @@ ${COMPRESS_CMD} ${SRC_DIR}oauth_july2010.js >> ${SRC_DIR}compound2.js
 ${COMPRESS_CMD} ${SRC_DIR}sha1.js >> ${SRC_DIR}compound2.js
 ${COMPRESS_CMD} ${SRC_DIR}persist-new.js >> ${SRC_DIR}compound2.js
 ${COMPRESS_CMD} ${SRC_DIR}jquery.simplemodal-1.3.3.min.js >> ${SRC_DIR}compound2.js
+${COMPRESS_CMD} ${SRC_DIR}jquery.cookie-1.4.1.min.js >> ${SRC_DIR}compound2.js
+${COMPRESS_CMD} ${SRC_DIR}theme-selector.js >> ${SRC_DIR}compound2.js

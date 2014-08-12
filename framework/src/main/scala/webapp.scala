@@ -28,8 +28,6 @@ object WebApp {
     "credsall.js" -> renderJSDynamic (getAllCredentials) _,
     "credsall2.js" -> renderJSDynamic (getAllCredentials2) _,
     "viewPower" -> renderHtmlDynamic (Dash.getViewPower) _,
-    "getCss" -> renderCSSDynamic (CSS.getCss) _,
-    "chooseTheme" -> renderHtmlDynamic (CSS.getChooseTheme) _,
 
     // pic related
     "uploadStart" -> renderHtmlDynamic (Pic.getUploadStart) _,
@@ -46,8 +44,7 @@ object WebApp {
   val postHandlerMap = List[Tuple2[String,Bootup#UnitHandler]] (
     "addComment" -> renderHtmlDynamic (Pic.postAddComment) _,
     "purgeBadCreds" -> renderJsonDynamic (Admin.postPurge) _,
-    "settingTimeOrder" -> renderJsonDynamic (Dash.postSettingTimeOrder) _,
-    "themeSave" -> renderHtmlDynamic (CSS.postThemeSave) _
+    "settingTimeOrder" -> renderJsonDynamic (Dash.postSettingTimeOrder) _
   )
 
   val postRawHandlerMap = List[Tuple2[String,Bootup#UnitHandler]] (
@@ -116,6 +113,8 @@ object WebApp {
         map += ("multipleLoginOk" -> cookie.getValue)
       } else if (name == "scheme_id") {
         map += ("scheme_id" -> cookie.getValue)
+      } else if (name == "theme") {
+        map += ("theme" -> cookie.getValue)
       } else if (name startsWith "mauth") {
         val cookieContents = cookie.getValue.split(",")
         val id = name.drop(5).toInt

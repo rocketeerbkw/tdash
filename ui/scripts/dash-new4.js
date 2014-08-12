@@ -41,10 +41,6 @@ function toggleMoreFriends() {
   showMore=!showMore;
 }
 
-function changeCSS(url) {
-  $("#cssLink").attr("href", url);
-}
-
 function getCurrTime() {return (new Date()).getTime();}
 
 var currLogin = -1,
@@ -1984,7 +1980,7 @@ var dash = new function () {
         $.modal('<div><h2>Well, so long...</h2><a href="/oauth/logout">Sign Out?</a></div>');
         break;
       case "themeSelect":
-        $.modal('<iframe src="/oauth/chooseTheme?embed=true" style="width:650px;height:450px;border:none;"/>',{opacity:0,onShow:dlgAutoHeight});
+        $.modal(theme_selector.getModal(),{opacity:0,onShow:dlgAutoHeight});
         break;
       case "dm":
         showDM();
