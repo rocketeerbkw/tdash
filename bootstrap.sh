@@ -3,6 +3,7 @@
 # System deps
 apt-get update
 apt-get install -y default-jre unzip git postgresql
+gem install sass
 
 # Program deps
 mkdir /vagrant/bin
