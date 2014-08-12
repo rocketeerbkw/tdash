@@ -549,6 +549,11 @@ background:#"""+colors(6)+""";;;
   color: #""" + colors(16) + """;
 }
 
+#navFriends tr:hover {
+background:#"""+colors(5)+""";
+color:#"""+colors(16)+""";
+}
+
 #navFriends td {
   margin: 0;
   padding: 0;
