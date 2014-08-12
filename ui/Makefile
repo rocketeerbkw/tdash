@@ -34,6 +34,13 @@ compile: all scripts
 	rm -rf ${STATIC_DIR}/images
 	rm	-f ${STATIC_DIR}/*.html
 	mkdir -p ${STATIC_DIR}/usrspc
+	sass sass/classic.scss css/themes/classic.css
+	sass sass/helveti.scss css/themes/helveti.css
+	sass sass/helvetiblue.scss css/themes/helvetiblue.css
+	sass sass/papaya.scss css/themes/papaya.css
+	sass sass/safari.scss css/themes/safari.css
+	sass sass/sea.scss css/themes/sea.css
+	sass sass/subway.scss css/themes/subway.css
 ifndef DEBUG
 	mkdir -p ${STATIC_DIR}/css/
 	${COMPRESS_CMD} css/common.css > ${STATIC_DIR}/css/common.css
