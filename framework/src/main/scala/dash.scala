@@ -263,7 +263,7 @@ object Dash {
     response.setHeader("Cache-Control","no-cache")
 
     val (cookies, loginTokens) = WebApp.processLoginCookies(request.req)
-    val userId = loginTokens.flatMap(token=>dbHelper.getUserIdFromToken(token._2, token._3)).firstOption
+    val userId = loginTokens.flatMap(token=>dbHelper.getUserIdFromToken(token._2, token._3)).headOption
     val userScreenName = userId.map(dbHelper.getScreenNameFromUserId(_))
     val themeWhitelist =  Array ("classic", "sea", "safari", "papaya", "subway", "helveti", "helvetiblue")
     var theme = cookies.get("theme").getOrElse("classic")

@@ -246,7 +246,7 @@ object dbHelper {
     getImgCountStmt synchronized {
       val result = extractResults(getImgCountStmt.executeQuery, {row => row.getInt(1)}, None)
 
-      result._1.first
+      result._1.head
     }
   }
 
@@ -264,7 +264,7 @@ object dbHelper {
     getUserCountStmt synchronized {
       val result = extractResults(getUserCountStmt.executeQuery, {row => row.getInt(1)}, None)
 
-      result._1.first
+      result._1.head
     }
   }
 
@@ -285,7 +285,7 @@ object dbHelper {
       getUserIdFromTokenStmt.setString(2,oauth_token_secret)
       val result = extractResults(getUserIdFromTokenStmt.executeQuery, {row => row.getLong(1)}, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 
@@ -307,7 +307,7 @@ object dbHelper {
       getAndroidUserIdFromTokenStmt.setString(3,oauth_verifier)
       val result = extractResults(getAndroidUserIdFromTokenStmt.executeQuery, {row => row.getLong(1)}, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 
@@ -328,7 +328,7 @@ object dbHelper {
       getScreenNameFromTokenStmt.setString(2,oauth_token_secret)
       val result = extractResults(getScreenNameFromTokenStmt.executeQuery, {row => row.getString(1)}, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 
@@ -347,7 +347,7 @@ object dbHelper {
       getUserIdFromScreenNameStmt.setString(1,screenName)
       val result = extractResults(getUserIdFromScreenNameStmt.executeQuery, {row => row.getLong(1)}, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 
@@ -367,7 +367,7 @@ object dbHelper {
       getSettingsStmt.setLong(1,userId)
       val result = extractResults(getSettingsStmt.executeQuery, {row => UserSetting(row.getBoolean(1))}, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 
@@ -388,7 +388,7 @@ object dbHelper {
       getScreenNameFromUserIdStmt.setLong(1,userId)
       val result = extractResults(getScreenNameFromUserIdStmt.executeQuery, {row => row.getString(1)}, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 
@@ -432,7 +432,7 @@ object dbHelper {
       getScreenNameFromTwinklerStmt.setInt(1,userId)
       val result = extractResults(getScreenNameFromTwinklerStmt.executeQuery, {row => row.getString(1)}, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 */
@@ -453,7 +453,7 @@ object dbHelper {
       getFollowerUpdatedStmt.setLong(1,userId)
       val result = extractResults(getFollowerUpdatedStmt.executeQuery, {row => row.getDate(1)}, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 
@@ -476,7 +476,7 @@ object dbHelper {
         Upload(row.getInt(1), row.getLong(2), row.getString(3), row.getDate(4), row.getInt(5), row.getInt(6), row.getString(7))
       }, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 
@@ -497,7 +497,7 @@ object dbHelper {
       getScreenNameStmt.setString(2,oauth_token_secret)
       val result = extractResults(getScreenNameStmt.executeQuery, {row => row.getString(1)}, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 
@@ -516,7 +516,7 @@ object dbHelper {
       updateOldOnTopSettingStmt.setBoolean(2, oldOnTop)
       val result = extractResults(updateOldOnTopSettingStmt.executeQuery, {row => 0}, None)
 
-      result._1.firstOption
+      result._1.headOption
     }
   }
 
@@ -672,7 +672,7 @@ object dbHelper {
       getUploadCountStmt.setLong(2,userId)
       val result = extractResults(getUploadCountStmt.executeQuery, {row => row.getInt(1)}, None)
 
-      result._1.first
+      result._1.head
     }
   }
 
@@ -693,7 +693,7 @@ object dbHelper {
       getCommentCountStmt.setLong(2,userId)
       val result = extractResults(getCommentCountStmt.executeQuery, {row => row.getInt(1)}, None)
 
-      result._1.first
+      result._1.head
     }
   }
 
@@ -713,7 +713,7 @@ object dbHelper {
       getCommentCountForUploadStmt.setInt(1,uploadId)
       val result = extractResults(getCommentCountForUploadStmt.executeQuery, {row => row.getInt(1)}, None)
 
-      result._1.first
+      result._1.head
     }
   }
 
@@ -753,7 +753,7 @@ object dbHelper {
     getTotalTweetsStmt synchronized {
       val result = extractResults(getTotalTweetsStmt.executeQuery, {row => row.getInt(1)}, None)
 
-      result._1.first
+      result._1.head
     }
   }
 
@@ -823,7 +823,7 @@ object dbHelper {
 
       val result = extractResults(getMaxHistTimestampStmt.executeQuery, {row => row.getTimestamp(1)}, None)
 
-      result._1.firstOption.flatMap(t => if (t == null) None else Some(t))
+      result._1.headOption.flatMap(t => if (t == null) None else Some(t))
     }
   }
 

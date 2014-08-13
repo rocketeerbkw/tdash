@@ -261,14 +261,14 @@ object WebApp {
 
   def findEmptySlot (tokens:List[(Int,String,String)]) = {
     if (tokens.length > 0) {
-      var sorted = tokens.sort(_._1 < _._1)
+      var sorted = tokens.sortWith(_._1 < _._1)
 
-      val first = sorted.first._1
+      val first = sorted.head._1
       if (first == -1) {
         sorted = sorted.tail
       }
       var i = 0;
-      while (sorted.length > 0 && sorted.first._1 == i) {
+      while (sorted.length > 0 && sorted.head._1 == i) {
         sorted = sorted.tail
         i += 1
       }

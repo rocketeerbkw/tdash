@@ -10,8 +10,8 @@ import javax.servlet.http._
 
 case class Request(req:HttpServletRequest, headers:Map[String,String], params:Map[String,Seq[String]], appPath:String) {
   def getParamOpt(name:String) = params.get(name).flatMap{p =>
-    if (p.first.length > 0)
-      Some(p.first)
+    if (p.head.length > 0)
+      Some(p.head)
     else None
   }
   def getParam(name:String) = params(name)(0)
@@ -168,7 +168,7 @@ object Utils {
       case y: Atom[_] => !y.isInstanceOf[Text]
       case _ => false
     }) { // add space
-      val it = children.elements
+      val it = children.iterator
       val f = it.next
       writeXML(f, pscope, stripComment, writer)
       while (it.hasNext) {

@@ -93,7 +93,7 @@ object Pic {
 
   def getViewUser (request:Request, response:HttpServletResponse):String = {
     val (cookies, loginTokens) = WebApp.processLoginCookies(request.req)
-    val userScreenName = loginTokens.flatMap(token=>dbHelper.getScreenName(token._2, token._3)).firstOption
+    val userScreenName = loginTokens.flatMap(token=>dbHelper.getScreenName(token._2, token._3)).headOption
 
     val appPath = request.appPath
     val nameStr = appPath.drop(5)         /*      user/           */
@@ -173,7 +173,7 @@ object Pic {
 
   def getViewPic (request:Request, response:HttpServletResponse):String = {
     val (cookies, loginTokens) = WebApp.processLoginCookies(request.req)
-    val userScreenName = loginTokens.flatMap(token=>dbHelper.getScreenName(token._2, token._3)).firstOption
+    val userScreenName = loginTokens.flatMap(token=>dbHelper.getScreenName(token._2, token._3)).headOption
     // val cookies = WebApp.processCookies(request.req)
     // val userScreenName = dbHelper.getScreenName(cookies.get("oauth_token").getOrElse(""), cookies.get("oauth_token_secret").getOrElse(""))
     // val userId = dbHelper.getUserIdFromToken(cookies.get("oauth_token").getOrElse(""), cookies.get("oauth_token_secret").getOrElse(""))
@@ -277,7 +277,7 @@ object Pic {
 
   def postAddComment (request:Request, response:HttpServletResponse):String = {
     val (cookies, loginTokens) = WebApp.processLoginCookies(request.req)
-    val userId = loginTokens.flatMap(token=>dbHelper.getUserIdFromToken(token._2, token._3)).firstOption
+    val userId = loginTokens.flatMap(token=>dbHelper.getUserIdFromToken(token._2, token._3)).headOption
     if (userId.isDefined) {
       // check how many comments from this bugger
       val commentCount = dbHelper.getCommentCount(userId.get)
@@ -350,9 +350,9 @@ object Pic {
 
     val loginIdOpt =
       if (embedded) {
-        request.getIntParamOpt("loginId").orElse(if (loginTokens.length == 1) Some(loginTokens.first._1) else None)
+        request.getIntParamOpt("loginId").orElse(if (loginTokens.length == 1) Some(loginTokens.head._1) else None)
       } else {
-        request.getIntParamOpt("loginId").orElse(loginTokens.firstOption.map(_._1))
+        request.getIntParamOpt("loginId").orElse(loginTokens.headOption.map(_._1))
       }
 
     if (embedded && (loginTokens.length > 1) && (!loginIdOpt.isDefined)) {
@@ -666,7 +666,7 @@ object Pic {
 
   final private def secureEscape(text: String) = {
     val s = new StringBuilder()
-    for (c <- text.elements) c match {
+    for (c <- text.iterator) c match {
       case '<' => s.append("&lt;")
       case '>' => s.append("&gt;")
       // case '&' => s.append("&amp;")

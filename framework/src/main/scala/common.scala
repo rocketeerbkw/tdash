@@ -17,7 +17,7 @@ case class TaskCacher(f: () => List[Int]) {
       println("Cache of tasks" + cache)
     }
 
-    val task = cache.firstOption
+    val task = cache.headOption
     if (task.isDefined) {
       cache = cache.tail
     }
