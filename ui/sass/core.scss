@@ -382,9 +382,39 @@ background:$color-5;
 color:$color-16;
 }
 
-#navFriends td {
+#navFriends td,
+#navFriends th {
   margin: 0;
   padding: 0;
+}
+
+.up-arrow,
+.down-arrow {
+  position: relative;
+  margin-right: 10px;
+  padding-right: 3px;
+}
+
+.up-arrow:after,
+.down-arrow:after {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 25%;
+  left: 100%;
+  z-index: 2;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+
+.up-arrow:after {
+  border-bottom: 8.7px solid $color-16;
+}
+
+.down-arrow:after {
+  border-top: 8.7px solid $color-16;
 }
 
 .linkNoDec {

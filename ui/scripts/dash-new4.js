@@ -451,14 +451,14 @@ var dash = new function () {
         var new_sort_dir = sort_dir == 'asc' ? 'desc' : 'asc';
         sort_row += '<tr>';
         if (sort_by == 'name') {
-          sort_row += '<td onclick="dash.changeSort(\'name\', \'' + new_sort_dir + '\')">';
-          sort_row += (sort_dir == 'asc') ? '/\\' : '\\/';
-          sort_row += '</td><td onclick="dash.changeSort(\'unread\', \'' + new_sort_dir + '\')"></td>';
+          sort_row += '<th onclick="dash.changeSort(\'name\', \'' + new_sort_dir + '\')">';
+          sort_row += (sort_dir == 'asc') ? '<span class="up-arrow">Username</span>' : '<span class="down-arrow">Username</span>';
+          sort_row += '</th><th onclick="dash.changeSort(\'unread\', \'' + new_sort_dir + '\')">Unread</th>';
         }
         else {
-          sort_row += '<td onclick="dash.changeSort(\'name\', \'' + new_sort_dir + '\')"></td><td onclick="dash.changeSort(\'unread\', \'' + new_sort_dir + '\')">';
-          sort_row += (sort_dir == 'asc') ? '/\\' : '\\/';
-          sort_row += '</td>';
+          sort_row += '<th onclick="dash.changeSort(\'name\', \'' + new_sort_dir + '\')">Username</th><th onclick="dash.changeSort(\'unread\', \'' + new_sort_dir + '\')">';
+          sort_row += (sort_dir == 'asc') ? '<span class="up-arrow">Unread</span>' : '<span class="down-arrow">Unread</span>';
+          sort_row += '</th>';
         }
         sort_row += '</tr>';
         navUnreadStr = sort_row + navUnreadStr;
