@@ -262,10 +262,17 @@ var dash = new function () {
   function checkFriendUnread() {
     // try to find the next unread friend
     var unReadFriend = null;
+    var passedLastSelection = false;
+    var tweet = tweetCache[window.lastTweetSelection];
 
     for (var i = 0, length = sortedFriends.length; i < length; i++) {
       var friend = friends[sortedFriends[i]];
-      if (friend.tdashUnread > 0) {
+
+      if (tweet.user.id == friend.id) {
+        passedLastSelection = true;
+      }
+
+      if (friend.tdashUnread > 0 && passedLastSelection) {
         unReadFriend = friend;
         break;
       }
@@ -1067,6 +1074,9 @@ var dash = new function () {
 
   function changeSelection(id) {
     currTweetSelection = id;
+    if (id) {
+      window.lastTweetSelection = id; // Dirty TODO
+    }
     var selectedObj = $('.selected');
     selectedObj.find('.plcHld').html('');
     selectedObj.find('.indTd').removeClass('indSel').addClass('indRead');
