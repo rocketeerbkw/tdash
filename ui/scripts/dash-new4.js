@@ -946,7 +946,7 @@ var dash = new function () {
 
 
   function updateReplyToData(tweet, n) {
-    var replyToStr = '<div class="replyToData">In reply to <em>' + tweet.user.screen_name + "</em> &#8227; " + tweet.text + "</div>";
+    var replyToStr = '<div class="replyToData">In reply to <em>' + tweet.user.screen_name + "</em> &#8227; " + tweetEntityReplace(tweet.text, tweet) + "</div>";
     var replyToId = tweet.in_reply_to_status_id_str;
     if (replyToId) {
       replyToStr += '<div class="replyTo replyTo'+replyToId+'"><div class="replyToData">';
