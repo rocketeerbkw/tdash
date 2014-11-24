@@ -263,8 +263,8 @@ var dash = new function () {
     // try to find the next unread friend
     var unReadFriend = null;
 
-    for (var i in friends) {
-      var friend = friends[i];
+    for (var i = 0, length = sortedFriends.length; i < length; i++) {
+      var friend = friends[sortedFriends[i]];
       if (friend.tdashUnread > 0) {
         unReadFriend = friend;
         break;
