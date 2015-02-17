@@ -119,8 +119,7 @@ border-left:1px solid $color-3;
 .paddedRight{
 /*margin:0 8px;*/
 padding:0 8px 0px 8px;
--moz-border-radius:6px;
--webkit-border-radius:6px;
+border-radius:6px;
 }
 
 #topInfo {
@@ -158,8 +157,7 @@ padding:3px 0;
 #readerInfo {
 background:$color-5;
 border:1px solid $color-0;
--moz-border-radius:4px;
--webkit-border-radius:4px;
+border-radius:4px;
 margin-bottom:16px;
 padding:8px 4px;
 }
@@ -214,8 +212,7 @@ padding:3px 6px 2px 6px;
 background:$color-0;
 font-size:90%;
 vertical-align:middle;
--moz-border-radius:5px;
--webkit-border-radius:5px;
+border-radius:5px;
 color:$color-8;
 }
 
@@ -225,8 +222,7 @@ padding:3px 6px 2px 6px;
 background:$color-2;
 font-size:80%;
 vertical-align:middle;
--moz-border-radius:5px;
--webkit-border-radius:5px;
+border-radius:5px;
 color:$color-3;
 }
 
@@ -300,8 +296,7 @@ padding:1px 5px;
 background:$color-5;
 cursor:pointer;
 margin:0 6px;
--moz-border-radius:2px;
--webkit-border-radius:2px;
+border-radius:2px;
 color:$color-16;
 white-space:nowrap;
 font-size:80%;
@@ -320,8 +315,7 @@ max-height:48px;
 width:16px;
 text-align:center;
 padding:6px 0;
--moz-border-radius:3px;
--webkit-border-radius:3px;
+border-radius:3px;
 }
 
 .indRead {
@@ -355,8 +349,7 @@ margin:0;
 margin:2px 0;
 text-align:center;
 border:2px solid $color-0;
--moz-border-radius:3px;
--webkit-border-radius:3px;
+border-radius:3px;
 }
 
 
@@ -571,8 +564,7 @@ text-align:center;
 #showAuthTip {
 background:$color-15;
 border-radius:4px;
--moz-border-radius:4px;
--webkit-border-radius:4px;
+border-radius:4px;
 padding:5px;
 }
 
