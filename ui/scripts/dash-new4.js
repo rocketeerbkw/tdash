@@ -2533,6 +2533,9 @@ function deleteOld (store, onlyCount) {
 }
 
 $(document).ready(function() {
+  // Allow closing modal dialogs by clicking the overlay;
+  $.modal.defaults.overlayClose = true;
+
   readerObj = document.getElementById('reader');
   window.onresize = resizeIframe;
 
