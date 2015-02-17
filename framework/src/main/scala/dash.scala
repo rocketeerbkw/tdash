@@ -12,7 +12,7 @@ object Dash {
 """
 
   val uservoiceSrc = """
-    <!-- script type="text/javascript">
+    <script type="text/javascript">
     var uservoiceOptions = {
       /* required */
       key: 'tdash', host: 'tdash.uservoice.com', forum: '37308', showTab: false,
@@ -27,7 +27,7 @@ object Dash {
     }
     _loadSuper = window.onload;
     window.onload = (typeof window.onload != 'function') ? _loadUserVoice : function() { _loadSuper(); _loadUserVoice(); };
-    </script-->
+    </script>
   """
 
   val htmlStdStr = """
@@ -104,10 +104,7 @@ object Dash {
         <div class="navTab">
           <p id="navHeadTrends" class="tabHead" onclick="dash.changeMode(3)">Trends</p>
           <div id="navTrends" style="display:none;">Fetching&#8230;</div>
-        </div>""" + flattrSrc + """
-        <!-- BuySellAds.com Zone Code -->
-        <div id="bsap_1270076" class="bsarocks bsap_dade2eb1bbfc3a41945ef1939328976e"></div>
-        <!-- End BuySellAds.com Zone Code -->
+        </div>
       </div>
 
       <div id="content">
@@ -240,7 +237,7 @@ object Dash {
       </div>
       <!--iframe id="fav_target" name="fav_target" onload="dash.favSubmitted()"></iframe-->
     </div>
-""" + uservoiceSrc
+"""
 
   val htmlBody2 = htmlBody2Gen("", "", loggedInFormsNScripts)
   val htmlBody2NoLoggedIn = htmlBody2Gen(noLoggedInTitle, noLoggedInMessage, "")
