@@ -121,10 +121,10 @@ var rQ = new function () {
 
 var dash = new function () {
   // static data
-  var currVersion = "5.49",
-      releaseDate = "2-Aug-2011",
+  var currVersion = "6.0",
+      releaseDate = "17-Feb-2015",
 
-      aboutStr = '<h2>tDash.org</h2><p>A dashboard for Twitter.<br/></p><p><em>Ver ' + currVersion+' | '+releaseDate+ '</em></p><p>tDash is undergoing rapid development. Please give us your <a target="_blank" href="http://tdash.uservoice.com">feedback here</a>.</p><hr/><p>Copyright 2009-2010 tDash.org</p><p>Follow <a target="_blank" href="http://twitter.com/tdash">@tdash</a> for updates</p><hr/><p id="APILimit"></p>',
+      aboutStr = '<h2>tDash.org</h2><p>A dashboard for Twitter.<br/></p><p><em>Ver ' + currVersion+' | '+releaseDate+ '</em></p><hr/><p>Copyright 2009-2010 tDash.org</p><hr/><p id="APILimit"></p>',
       keyStr = '<h2>Keyboard shortcuts</h2><p>All shortcuts are case insensitive</p> <table cellspacing="0" id="helpKeyShorts"><tbody><tr><td class="helpKey">Space</td><td>Go to next tweet.<br/>Jumps to next folder if no more unread tweets in current folder</td></tr><tr><td><span class="helpKey">o</span></td><td>Open URL(s) in the selected tweet</td></tr>  <tr><td><span class="helpKey">n</span> or <span class="helpKey">j</span></td><td>Go to next tweet</td></tr><tr><td><span class="helpKey">p</span> or <span class="helpKey">k</span></td><td>Go to previous tweet</td></tr> <tr><td class="helpKey">u</td><td>Fetch new tweets (get Updates)</td></tr> <tr><td class="helpKey">s</td><td>Enter your status</td></tr> <tr><td class="helpKey">r</td><td>Reply to currently selected tweet</td></tr> <tr><td class="helpKey">f</td><td>Favourite the currently selected tweet</td></tr> <tr><td class="helpKey">t</td><td>ReTweet the currently selected tweet</td></tr> <tr><td class="helpKey">q</td><td>Quick RT the currently selected tweet</td></tr><tr><td class="helpKey">?</td><td>Show this help screen</td></tr> <tr><td class="helpKey">Esc</td><td>Close modal screens like this screen</td></tr></tbody></table>',
       millisPerHour = 3600000,
 
