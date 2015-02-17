@@ -1484,7 +1484,7 @@ var dash = new function () {
           case 'O':
             CxBrowserStopProp(e);
             // open URL
-            var links = $(".selected .text a");
+            var links = $(".text a, .replyTo a", ".selected");
             if (links.length > 1) {
 
               var urlStr = "<table><tbody>";
