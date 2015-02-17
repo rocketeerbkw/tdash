@@ -109,7 +109,7 @@ object Dash {
 
       <div id="content">
         <div id="toolBar">
-          <table cellspacing="0" style="text-align:left;"><tbody><tr style="vertical-align:top">
+          <table cellspacing="0" style="display:none;text-align:left;"><tbody><tr style="vertical-align:top">
             <td>
               <form accept-charset="UTF-8" id="updateForm" method="post" action="https://api.twitter.com/1/statuses/update.xml" target="upload_target">
                 <textarea name="status" rows="3" cols="60" id="updateInput" ></textarea>
@@ -137,14 +137,14 @@ object Dash {
           <div style="clear:both;">
             <table cellspacing="0"><tbody><tr style="vertical-align:bottom">
               <td style="width:100%;">
-                <div class="horizDivider">
+                <!--<div class="horizDivider">
                   <div class="horizDividerInner"> </div>
-                </div>
+                </div>-->
               </td>
 
               <td style="white-space:nowrap;">
                 <input id="fetchNewButton" type="button" value="Fetch now!" onclick="dash.fetchNew();"/>
-                <input id="imgUpButton" type="button" value="Share a Photo" onclick="dash.imgUpload();"/>
+                <!--<input id="imgUpButton" type="button" value="Share a Photo" onclick="dash.imgUpload();"/>-->
                 <!--input id="markAllReadButton" type="button" value="Mark folder as read" onclick="dash.markAllRead();"/-->
                 <span class="toolButt"><input id="showReadButton" type="checkbox" /><label for="showReadButton">Show Read</label></span>
                 <select id="sortOrderSelect" onchange="dash.timeOrderChange();">

@@ -1090,12 +1090,13 @@ var dash = new function () {
     }
 
     var buttStr = '<table><tbody><tr><td class="buttWrap"><span class="st_button" onclick="dash.replyTo(\''+id+'\')">&#9993;&nbsp;reply</span></td>';
-    buttStr += '<td class="buttWrap"><span class="st_button" onclick="dash.retweet(\''+id+'\')">&#8634;&nbsp;retweet</span></td>';
-    buttStr += '<tr><td class="buttWrap"><span class="st_button" onclick="dash.fav(\''+id+'\')">&#10084;&nbsp;fav</td>';
-    buttStr += '<td class="buttWrap"><span class="st_button" onclick="dash.newRT(\''+id+'\')">Quick RT</span></td>';
+    buttStr += '<td class="buttWrap"><span class="st_button" onclick="dash.retweet(\''+id+'\')">&#8634;&nbsp;retweet</span></td></tr>';
+    buttStr += '<tr><td class="buttWrap"><span class="st_button" onclick="dash.fav(\''+id+'\')">&#10084;&nbsp;fav</span></td>';
+    buttStr += '<td class="buttWrap"><span class="st_button" onclick="dash.newRT(\''+id+'\')">Quick RT</span></td></tr></tbody></table>';
     // var replyButt = '<img src="reply.png" />';
 
-    $('#stat'+id+' .plcHld').html(buttStr);
+    // TODO: fix all these buttons
+    //$('#stat'+id+' .plcHld').html(buttStr);
 
     markReadInView();
     updateNav();
