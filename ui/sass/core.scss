@@ -74,8 +74,21 @@ color:$color-2;
 }
 
 #view {
-margin:0;
-padding:0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+#sidebar {
+  padding: 0 8px;
+  border-right: 1px solid $color-4;
+  flex: 0 1 auto;
+}
+
+#content {
+  flex: 1 1 auto;
+  padding: 0 8px;
 }
 
 #viewTbl {

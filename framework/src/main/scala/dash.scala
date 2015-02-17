@@ -64,146 +64,132 @@ object Dash {
     })();
     </script>
     <div id="view">
-      <table id="viewTbl" class="topAlignTbl" cellspacing="0">
-        <tbody><tr>
-          <td class="paddedLeftTd">
-            <div class="paddedLeft">
-              <div id="headCorner">
-                <a href="/" class="linkNoDec"><img class="logo" src="/images/logoColorSmall.png" /></a>
-                <p style="margin:.5em 0"><select id="logSelect" onchange="dash.userSelectChange();"></select><br/>
-                <span id="logInfo"></span></p>
-              </div>
+      <div id="sidebar">
+        <div id="headCorner">
+          <a href="/" class="linkNoDec"><img class="logo" src="/images/logoColorSmall.png" /></a>
+          <p style="margin:.5em 0"><select id="logSelect" onchange="dash.userSelectChange();"></select><br/>
+          <span id="logInfo"></span></p>
+        </div>
+        <div class="navTab">
+          <p id="navHeadFriends" class="tabHead" onclick="dash.changeMode(0,true)">Friends</p>
+          <table id="navFriends" data-sort-by="name" data-sort-dir="asc"></table>
+        </div>
+        <div class="navTab">
+          <p id="navHeadList" class="tabHead" onclick="dash.changeMode(2, true)">Lists</p>
+          <div id="navList" style="display:none;"></div>
+        </div>
+        <div class="navTab">
+          <p id="navHeadFolders" class="tabHead" onclick="dash.changeMode(1)">Folders</p>
+          <div id="navFolders" style="display:none;">
+            <p class="navElem" onclick="dash.folderClick('mentions');">Mentions</p>
+            <p class="navElem" onclick="dash.folderClick('inbox');">Inbox</p>
+            <p class="navElem" onclick="dash.folderClick('outbox');">Outbox</p>
+            <p class="navElem" onclick="dash.folderClick('favs');">Favourites</p>
+          </div>
+        </div>
+        <div class="navTab">
+          <p id="navHeadToolBox" class="tabHead" onclick="dash.changeMode(4)">Tool Box</p>
+          <div id="navToolBox" style="display:none;">
+            <p class="navElem" onclick="dash.toolClick('clicks');">Clicks</p>
+          </div>
+        </div>
+        <div class="navTab">
+          <p id="navHeadSearch" class="tabHead" onclick="dash.changeMode(5)">Search</p>
+          <div id="navSearch" style="display:none;">
+            <input id="searchInput" type="text" size="8"/>
+            <div id="navSearchInner">
             </div>
-          </td>
-          <td class="paddedRightTd">
-            <div class="paddedRight">
-              <div id="toolBar">
-                <table cellspacing="0" style="text-align:left;"><tbody><tr style="vertical-align:top">
-                  <td>
-                    <form accept-charset="UTF-8" id="updateForm" method="post" action="https://api.twitter.com/1/statuses/update.xml" target="upload_target">
-                      <textarea name="status" rows="3" cols="60" id="updateInput" ></textarea>
-                      <input id="replyToParam" type="text" name="in_reply_to_status_id" value='0' style="display:none;" />
-                      <input type="text" name="source" value='tDash' style="display:none;" />
-                      <input type="text" id="upd_oauth_consumer_key" name="oauth_consumer_key" value='tDash' style="display:none;" />
-                      <input type="text" id="upd_oauth_nonce" name="oauth_nonce" value='tDash' style="display:none;" />
-                      <input type="text" id="upd_oauth_signature" name="oauth_signature" value='tDash' style="display:none;" />
-                      <input type="text" id="upd_oauth_signature_method" name="oauth_signature_method" value='HMAC-SHA1' style="display:none;" />
-                      <input type="text" id="upd_oauth_timestamp" name="oauth_timestamp" value='tDash' style="display:none;" />
-                      <input type="text" id="upd_oauth_token" name="oauth_token" value='tDash' style="display:none;" />
-                      <input type="text" id="upd_oauth_version" name="oauth_version" value='1.0' style="display:none;" />
-                      <input type="submit" id="updateSubmit" value="" style="display:none;"/>
-                    </form>
-                  </td>
-                  <td id="updateInfo">
-                    <p id="topInfo">What are you doing?</p>
-                    <p style="margin:1px 0;"><span id="updateCharCount" class="charCount">140</span>
-                    <!--img alt="Submit update" id="updateButton" onclick="dash.updateClick()" src="/images/updateButt.png" /-->
-                    <input type="image" id="updateButton" onclick="dash.updateClick()" alt="Submit Update" src="/images/updateButt.png" /></p>
-                    <!--input type="button" id="updateButton" onclick="dash.updateClick()" value="&#9997; Submit Update"/-->
-                  </td>
-                  <td id="replyInfo"></td>
-                </tr></tbody></table>
-                <div style="clear:both;">
-                  <table cellspacing="0"><tbody><tr style="vertical-align:bottom">
-                    <td style="width:100%;">
-                      <div class="horizDivider">
-                        <div class="horizDividerInner"> </div>
-                      </div>
-                    </td>
+          </div>
+        </div>
+        <div class="navTab">
+          <p id="navHeadTrends" class="tabHead" onclick="dash.changeMode(3)">Trends</p>
+          <div id="navTrends" style="display:none;">Fetching&#8230;</div>
+        </div>""" + flattrSrc + """
+        <!-- BuySellAds.com Zone Code -->
+        <div id="bsap_1270076" class="bsarocks bsap_dade2eb1bbfc3a41945ef1939328976e"></div>
+        <!-- End BuySellAds.com Zone Code -->
+      </div>
 
-                    <td style="white-space:nowrap;">
-                      <input id="fetchNewButton" type="button" value="Fetch now!" onclick="dash.fetchNew();"/>
-                      <input id="imgUpButton" type="button" value="Share a Photo" onclick="dash.imgUpload();"/>
-                      <!--input id="markAllReadButton" type="button" value="Mark folder as read" onclick="dash.markAllRead();"/-->
-                      <span class="toolButt"><input id="showReadButton" type="checkbox" /><label for="showReadButton">Show Read</label></span>
-                      <select id="sortOrderSelect" onchange="dash.timeOrderChange();">
-                        <option value="oldTop">Older tweets on top</option>
-                        <option value="newTop" selected="selected">Newer tweets on top</option>
-                      </select>
-                      <select id="powerSelect" onchange="dash.powerSelect()">
-                        <option style="display:none;color:#eee;" value="more" selected="selected">More&#8230;</option>
-                        <option value="enableNotifications">Enable notifications&#8230;</option>
-                        <option value="settings">Settings&#8230;</option>
-                        <option value="signOut">Sign Out&#8230;</option>
-                        <option value="picView">Your pics&#8230;</option>
-                        <option value="themeSelect">Themes&#8230;</option>
-                        <optgroup label="Power User" class="ogroup">
-                          <option value="sync">Sync&#8230;</option>
-                          <option value="purge">Purge DB&#8230;</option>
-                          <option value="dm">Direct Message&#8230;</option>
-                          <option value="feedback">Feedback&#8230;</option>
-                        </optgroup>
-                        <optgroup label="Help" class="ogroup">
-                          <option value="keys">Keys&#8230;</option>
-                          <option value="about">About&#8230;</option>
-                        </optgroup>
-                      </select>
-                      <input id="helpButton" type="button" value="? Help" onclick="dash.showHelp();"/>
-                    </td>
-                  </tr></tbody></table>
+      <div id="content">
+        <div id="toolBar">
+          <table cellspacing="0" style="text-align:left;"><tbody><tr style="vertical-align:top">
+            <td>
+              <form accept-charset="UTF-8" id="updateForm" method="post" action="https://api.twitter.com/1/statuses/update.xml" target="upload_target">
+                <textarea name="status" rows="3" cols="60" id="updateInput" ></textarea>
+                <input id="replyToParam" type="text" name="in_reply_to_status_id" value='0' style="display:none;" />
+                <input type="text" name="source" value='tDash' style="display:none;" />
+                <input type="text" id="upd_oauth_consumer_key" name="oauth_consumer_key" value='tDash' style="display:none;" />
+                <input type="text" id="upd_oauth_nonce" name="oauth_nonce" value='tDash' style="display:none;" />
+                <input type="text" id="upd_oauth_signature" name="oauth_signature" value='tDash' style="display:none;" />
+                <input type="text" id="upd_oauth_signature_method" name="oauth_signature_method" value='HMAC-SHA1' style="display:none;" />
+                <input type="text" id="upd_oauth_timestamp" name="oauth_timestamp" value='tDash' style="display:none;" />
+                <input type="text" id="upd_oauth_token" name="oauth_token" value='tDash' style="display:none;" />
+                <input type="text" id="upd_oauth_version" name="oauth_version" value='1.0' style="display:none;" />
+                <input type="submit" id="updateSubmit" value="" style="display:none;"/>
+              </form>
+            </td>
+            <td id="updateInfo">
+              <p id="topInfo">What are you doing?</p>
+              <p style="margin:1px 0;"><span id="updateCharCount" class="charCount">140</span>
+              <!--img alt="Submit update" id="updateButton" onclick="dash.updateClick()" src="/images/updateButt.png" /-->
+              <input type="image" id="updateButton" onclick="dash.updateClick()" alt="Submit Update" src="/images/updateButt.png" /></p>
+              <!--input type="button" id="updateButton" onclick="dash.updateClick()" value="&#9997; Submit Update"/-->
+            </td>
+            <td id="replyInfo"></td>
+          </tr></tbody></table>
+          <div style="clear:both;">
+            <table cellspacing="0"><tbody><tr style="vertical-align:bottom">
+              <td style="width:100%;">
+                <div class="horizDivider">
+                  <div class="horizDividerInner"> </div>
                 </div>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="paddedLeftTd">
-            <div class="paddedLeft">
-              <div class="navTab">
-                <p id="navHeadFriends" class="tabHead" onclick="dash.changeMode(0,true)">Friends</p>
-                <table id="navFriends" data-sort-by="name" data-sort-dir="asc"></table>
-              </div>
-              <div class="navTab">
-                <p id="navHeadList" class="tabHead" onclick="dash.changeMode(2, true)">Lists</p>
-                <div id="navList" style="display:none;"></div>
-              </div>
-              <div class="navTab">
-                <p id="navHeadFolders" class="tabHead" onclick="dash.changeMode(1)">Folders</p>
-                <div id="navFolders" style="display:none;">
-                  <p class="navElem" onclick="dash.folderClick('mentions');">Mentions</p>
-                  <p class="navElem" onclick="dash.folderClick('inbox');">Inbox</p>
-                  <p class="navElem" onclick="dash.folderClick('outbox');">Outbox</p>
-                  <p class="navElem" onclick="dash.folderClick('favs');">Favourites</p>
-                </div>
-              </div>
-              <div class="navTab">
-                <p id="navHeadToolBox" class="tabHead" onclick="dash.changeMode(4)">Tool Box</p>
-                <div id="navToolBox" style="display:none;">
-                  <p class="navElem" onclick="dash.toolClick('clicks');">Clicks</p>
-                </div>
-              </div>
-              <div class="navTab">
-                <p id="navHeadSearch" class="tabHead" onclick="dash.changeMode(5)">Search</p>
-                <div id="navSearch" style="display:none;">
-                  <input id="searchInput" type="text" size="8"/>
-                  <div id="navSearchInner">
-                  </div>
-                </div>
-              </div>
-              <div class="navTab">
-                <p id="navHeadTrends" class="tabHead" onclick="dash.changeMode(3)">Trends</p>
-                <div id="navTrends" style="display:none;">Fetching&#8230;</div>
-              </div>
-            </div>""" + flattrSrc + """
-            <!-- BuySellAds.com Zone Code -->
-            <div id="bsap_1270076" class="bsarocks bsap_dade2eb1bbfc3a41945ef1939328976e"></div>
-            <!-- End BuySellAds.com Zone Code -->
-          </td>
-          <td class="paddedRightTd">
-            <div class="paddedRight">
-              <div id="readerInfo">"""+title+"""</div>
-              <div id="reader">""" + message + """</div>
-            </div>
-          </td>
-        </tr></tbody>
-      </table>
-      <table id="statusBar"><tbody><tr>
+              </td>
+
+              <td style="white-space:nowrap;">
+                <input id="fetchNewButton" type="button" value="Fetch now!" onclick="dash.fetchNew();"/>
+                <input id="imgUpButton" type="button" value="Share a Photo" onclick="dash.imgUpload();"/>
+                <!--input id="markAllReadButton" type="button" value="Mark folder as read" onclick="dash.markAllRead();"/-->
+                <span class="toolButt"><input id="showReadButton" type="checkbox" /><label for="showReadButton">Show Read</label></span>
+                <select id="sortOrderSelect" onchange="dash.timeOrderChange();">
+                  <option value="oldTop">Older tweets on top</option>
+                  <option value="newTop" selected="selected">Newer tweets on top</option>
+                </select>
+                <select id="powerSelect" onchange="dash.powerSelect()">
+                  <option style="display:none;color:#eee;" value="more" selected="selected">More&#8230;</option>
+                  <option value="enableNotifications">Enable notifications&#8230;</option>
+                  <option value="settings">Settings&#8230;</option>
+                  <option value="signOut">Sign Out&#8230;</option>
+                  <option value="picView">Your pics&#8230;</option>
+                  <option value="themeSelect">Themes&#8230;</option>
+                  <optgroup label="Power User" class="ogroup">
+                    <option value="sync">Sync&#8230;</option>
+                    <option value="purge">Purge DB&#8230;</option>
+                    <option value="dm">Direct Message&#8230;</option>
+                    <option value="feedback">Feedback&#8230;</option>
+                  </optgroup>
+                  <optgroup label="Help" class="ogroup">
+                    <option value="keys">Keys&#8230;</option>
+                    <option value="about">About&#8230;</option>
+                  </optgroup>
+                </select>
+                <input id="helpButton" type="button" value="? Help" onclick="dash.showHelp();"/>
+              </td>
+            </tr></tbody></table>
+          </div>
+        </div>
+        <div id="readerInfo">"""+title+"""</div>
+        <div id="reader">""" + message + """</div>
+      </div>
+
+
+
+
+    </div><table id="statusBar"><tbody><tr>
         <td id="fetchStatus"></td>
         <td id="fetchCount"></td>
         <td id="submitStatus"></td>
         <td id="versionStatus"></td>
-      </tr></tbody></table>
-    </div>""" + message2 + """
+      </tr></tbody></table>""" + message2 + """
   </body>
 </html>"""
 
