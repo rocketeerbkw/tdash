@@ -2423,20 +2423,20 @@ function pageY(elem) {
 }
 */
 
-// TODO completely remove bufferHeight
-var bufferHeight = 0;
+/**
+ * Resize the readerObj (holds all the tweets) so that it's height isn't larger
+ * than the sidebar or viewport, whichever is bigger.
+ */
 function resizeIframe() {
-  readerObj.style.height = '0px';
-  var height = $(window).height();
-  var leftPadHeight = 10;
-  $('.paddedLeftTd').each(function() {leftPadHeight += $(this).outerHeight(true)});
-  if (height < leftPadHeight) {
-    height = leftPadHeight;
+  var wHeight = $(window).height();
+  var sHeight = $('#sidebar').height();
+  if (sHeight > wHeight) {
+    var baseHeight = sHeight;
   }
-
-  var offset = $(readerObj).offset();
-  height -= (offset.top + $('#statusBar').outerHeight(true) + bufferHeight);
-  height = (height < 0) ? 0 : height;
+  else {
+    var baseHeight = wHeight - $('#statusBar').outerHeight(true);
+  }
+  var height = baseHeight - $(readerObj).offset().top;
   readerObj.style.height = height + 'px';
 }
 
