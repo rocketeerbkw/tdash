@@ -723,8 +723,8 @@ var dash = new function () {
     }
   }
 
-  function mkThumbImg(tweetId, href, imgUrl, thmbTxt) {
-    $('#stat'+tweetId+' .imgPreview').append('<li><a title="'+thmbTxt+' preview" target="_blank" class="linkNoDec" href="'+href+'"><img class="linkNoDec" src="'+imgUrl+'"></img></a></li>');
+  function mkThumbImg(tweetId, href, imgUrl, thmbTxt, classes) {
+    $('#stat'+tweetId+' .imgPreview').append('<li><a title="'+thmbTxt+' preview" target="_blank" class="linkNoDec" href="'+href+'"><img class="linkNoDec '+classes+'" src="'+imgUrl+'"></img></a></li>');
   }
 
   var thumbMatchers = [
@@ -820,11 +820,12 @@ var dash = new function () {
       mkThumbImg(tweetId, href, 'http://twitsnaps.com/mini/'+imageId, 'Twitsnaps Image');
     }],
     [ /twitter\.com\/[^/]+\/status\/[^/]+\/photo/i, function(href, tweetId, imageId) {
-      var tweet = tweetCache[tweetId], media = null;
+      var tweet = tweetCache[tweetId], media = null, classes = null;
       for (var i = 0, count = tweet.extended_entities.media.length; i < count; i++) {
         media = tweet.extended_entities.media[i];
         if (media.expanded_url === href) {
-          mkThumbImg(tweetId, href, media.media_url + ':thumb', 'Native Twitter Pic');
+          classes = media.type == "animated_gif" ? 'gif' : '';
+          mkThumbImg(tweetId, href, media.media_url + ':thumb', 'Native Twitter Pic', classes);
         }
       }
     }],

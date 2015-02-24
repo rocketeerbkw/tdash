@@ -543,8 +543,8 @@ list-style-type:none;
 display:inline;
 padding:0 5px;
 }
-.imgPreview img {
-padding:5px 0;
+.imgPreview .gif {
+  border: 2px solid red;
 }
 
 .noAuthTip {
