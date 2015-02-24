@@ -827,6 +827,9 @@ var dash = new function () {
           mkThumbImg(tweetId, href, media.media_url + ':thumb', 'Native Twitter Pic');
         }
       }
+    }],
+    [ /i\.imgur\.com/i, function(href, tweetId, notUsed) {
+      mkThumbImg(tweetId, href, href, 'Imgur');
     }]
 
 
