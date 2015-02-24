@@ -818,6 +818,15 @@ var dash = new function () {
     // Twitsnaps
     [ /twitsnaps\.com\/([0-9]+)/i, function(href, tweetId, imageId) {
       mkThumbImg(tweetId, href, 'http://twitsnaps.com/mini/'+imageId, 'Twitsnaps Image');
+    }],
+    [ /twitter\.com\/[^/]+\/status\/[^/]+\/photo/i, function(href, tweetId, imageId) {
+      var tweet = tweetCache[tweetId], media = null;
+      for (var i = 0, count = tweet.extended_entities.media.length; i < count; i++) {
+        media = tweet.extended_entities.media[i];
+        if (media.expanded_url === href) {
+          mkThumbImg(tweetId, href, media.media_url + ':thumb', 'Native Twitter Pic');
+        }
+      }
     }]
 
 
