@@ -135,14 +135,14 @@ object Dash {
             <td id="replyInfo"></td>
           </tr></tbody></table>
           <div style="clear:both;">
-            <table cellspacing="0"><tbody><tr style="vertical-align:bottom">
-              <td style="width:100%;">
+            <table cellspacing="0" width="100%"><tbody><tr style="vertical-align:bottom">
+              <td>
                 <!--<div class="horizDivider">
                   <div class="horizDividerInner"> </div>
                 </div>-->
               </td>
 
-              <td style="white-space:nowrap;">
+              <td style="white-space:nowrap; text-align: right;">
                 <input id="fetchNewButton" type="button" value="Fetch now!" onclick="dash.fetchNew();"/>
                 <!--<input id="imgUpButton" type="button" value="Share a Photo" onclick="dash.imgUpload();"/>-->
                 <!--input id="markAllReadButton" type="button" value="Mark folder as read" onclick="dash.markAllRead();"/-->
