@@ -3,7 +3,7 @@ SELECT version from meta_info;
 
 DROP FUNCTION set_old_on_top(INTEGER, BOOLEAN);
 
-CREATE LANGUAGE plpgsql;
+CREATE OR REPLACE LANGUAGE plpgsql;
 
 CREATE FUNCTION set_old_on_top(user_id_a BIGINT, setting BOOLEAN) RETURNS VOID AS
 $$

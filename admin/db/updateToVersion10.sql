@@ -6,7 +6,7 @@ CREATE TABLE user_settings (
     old_on_top          BOOLEAN NOT NULL
 );
 
-CREATE LANGUAGE plpgsql;
+CREATE OR REPLACE LANGUAGE plpgsql;
 
 
 CREATE FUNCTION set_old_on_top(user_id_a INTEGER, setting BOOLEAN) RETURNS VOID AS
