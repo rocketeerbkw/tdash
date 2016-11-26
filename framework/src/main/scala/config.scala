@@ -12,6 +12,7 @@ object Config {
   val smtpUser = ""
   val smtpPass = ""
   val fromEmail = "noreply@" + domainName
+  val dbHost = "db"
   val dbName = "tdash"
   val dbUser = "postgres"
   val dbPass = "xyz"
