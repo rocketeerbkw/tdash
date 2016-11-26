@@ -14,3 +14,9 @@ services:
       - .:/tdash
     ports:
       - "8085:80"
+  cli:
+    build:
+      context: .
+      dockerfile: .docker/cli/Dockerfile
+    volumes:
+      - .:/tdash
