@@ -9,7 +9,7 @@ case class Comment(screenName:String, comment:String)
 object dbHelper {
   import java.sql.ResultSet
 
-  private lazy val connection = java.sql.DriverManager getConnection("jdbc:postgresql:" + Config.dbName, Config.dbUser, Config.dbPass)
+  private lazy val connection = java.sql.DriverManager getConnection("jdbc:postgresql://" + Config.dbHost + "/" + Config.dbName, Config.dbUser, Config.dbPass)
   // private lazy val twinkleConnection = java.sql.DriverManager getConnection("jdbc:postgresql:twinkle","postgres","xyz")
 
   private lazy val connectionManualCommmit = {

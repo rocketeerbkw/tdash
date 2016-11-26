@@ -12,7 +12,8 @@ object Config {
   val smtpUser = ""
   val smtpPass = ""
   val fromEmail = "noreply@" + domainName
-  val dbName = "tdash"
-  val dbUser = "postgres"
-  val dbPass = "xyz"
+  val dbHost = "db"
+  val dbName = "docker"
+  val dbUser = "docker"
+  val dbPass = "docker"
 }
