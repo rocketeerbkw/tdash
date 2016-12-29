@@ -11,6 +11,7 @@ export DOMAIN="local"
 all: compile
 
 ui:
+	yarn
 	make -C ui compile
 
 compile:
@@ -26,6 +27,7 @@ run: all build/lib/scala-library.jar
 	./run.sh
 
 clean:
+	rm -rf node_modules
 	rm -rf ${OUT_DIR}
 	make -C framework clean
 	make -C ui clean

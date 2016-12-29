@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 # System deps
+wget -qO- https://deb.nodesource.com/setup_6.x | bash -
+wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 apt-get update
-apt-get install -y default-jre unzip git postgresql
-gem install sass
+apt-get install -y default-jre unzip git postgresql nodejs yarn
 
 # Program deps
 mkdir /vagrant/bin

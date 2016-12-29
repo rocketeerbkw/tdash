@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "colors": "^1.1.2",
+    "gulp": "^3.9.1",
+    "gulp-duration": "^0.0.0",
+    "gulp-sass": "^3.0.0",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-util": "^3.0.8"
+  },
+  "scripts": {
+    "gulp": "gulp"
+  }
+}

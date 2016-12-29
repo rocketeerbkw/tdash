@@ -34,14 +34,8 @@ compile: all scripts
 	rm -rf ${STATIC_DIR}/images
 	rm	-f ${STATIC_DIR}/*.html
 	mkdir -p ${STATIC_DIR}/usrspc
-	sass sass/classic.scss css/themes/classic.css
-	sass sass/helveti.scss css/themes/helveti.css
-	sass sass/helvetiblue.scss css/themes/helvetiblue.css
-	sass sass/papaya.scss css/themes/papaya.css
-	sass sass/safari.scss css/themes/safari.css
-	sass sass/sea.scss css/themes/sea.css
-	sass sass/subway.scss css/themes/subway.css
 ifndef DEBUG
+	npm run gulp sass --env=prod
 	mkdir -p ${STATIC_DIR}/css/themes/
 	${COMPRESS_CMD} css/common.css > ${STATIC_DIR}/css/common.css
 	${COMPRESS_CMD} css/index.css > ${STATIC_DIR}/css/index.css
@@ -50,6 +44,7 @@ ifndef DEBUG
 	${COMPRESS_CMD} css/stats.css > ${STATIC_DIR}/css/stats.css
 	cp -R css/themes/ ${STATIC_DIR}/css/
 else
+	npm run gulp sass
 	cp -R css/ ${STATIC_DIR}
 endif
 	cp -R images/ ${STATIC_DIR}

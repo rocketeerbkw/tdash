@@ -19,3 +19,8 @@ project/plugins/project/
 # Sass
 .sass-cache/
 ui/css/themes/
+*.css.map
+
+# node stuff
+/node_modules
+npm-debug.log
