@@ -4,12 +4,11 @@ else
 export COMPRESS_CMD=cat
 endif
 
-.PHONY : compile scripts
+.PHONY : compile scripts css
 
 all:
 
 scripts:
-	rm -rf ${STATIC_DIR}/scripts
 	mkdir -p ${STATIC_DIR}/scripts
 	scripts/createCombined2.sh
 	scripts/createIndexCombined.sh
@@ -29,24 +28,15 @@ scripts:
 	${COMPRESS_CMD} scripts/raphael-combined.js > ${STATIC_DIR}/scripts/raphael-combined.js
 	${COMPRESS_CMD} scripts/jquery.date_input.js > ${STATIC_DIR}/scripts/jquery.date_input.js
 
-compile: all scripts
-	rm -rf ${STATIC_DIR}/css
-	rm -rf ${STATIC_DIR}/images
-	rm	-f ${STATIC_DIR}/*.html
-	mkdir -p ${STATIC_DIR}/usrspc
+css:
 ifndef DEBUG
-	npm run gulp sass --env=prod
-	mkdir -p ${STATIC_DIR}/css/themes/
-	${COMPRESS_CMD} css/common.css > ${STATIC_DIR}/css/common.css
-	${COMPRESS_CMD} css/index.css > ${STATIC_DIR}/css/index.css
-	${COMPRESS_CMD} css/pic.css > ${STATIC_DIR}/css/pic.css
-	${COMPRESS_CMD} css/api.css > ${STATIC_DIR}/css/api.css
-	${COMPRESS_CMD} css/stats.css > ${STATIC_DIR}/css/stats.css
-	cp -R css/themes/ ${STATIC_DIR}/css/
+	npm run gulp sass -- --env=prod
 else
 	npm run gulp sass
-	cp -R css/ ${STATIC_DIR}
 endif
+	cp -R css/ ${STATIC_DIR}
+
+compile: clean all scripts css
 	cp -R images/ ${STATIC_DIR}
 	cp *.html ${STATIC_DIR}
 	cp *.xml ${STATIC_DIR}
@@ -57,4 +47,10 @@ endif
 	cp ErrorPage.html ${SERVLET_DIR}
 
 clean:
-
+	rm -rf ${STATIC_DIR}/scripts
+	rm -rf ${STATIC_DIR}/css
+	rm -rf ${STATIC_DIR}/images
+	rm	-f ${STATIC_DIR}/*.html
+	rm  -f ${STATIC_DIR}/*.xml
+	rm  -f ${STATIC_DIR}/*.ico
+	rm  -f ${STATIC_DIR}/persist.swf

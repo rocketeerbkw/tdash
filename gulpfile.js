@@ -2,13 +2,14 @@
 
 var gulp          = require('gulp'),
     util          = require('gulp-util'),
-    sass          = require('gulp-sass');
+    sass          = require('gulp-sass'),
+    cssnano       = require('gulp-cssnano');
 
 /* Check local env */
 var dev = util.env.env != 'prod' ? true : false;
 var no_error_exit = false;
 
-/*Development stuff, do NOT install on dev/prod*/
+/* Development stuff, do NOT install on dev/prod */
 if( dev ) {
   var sourcemaps    = require('gulp-sourcemaps'),
       duration      = require('gulp-duration'),
@@ -16,22 +17,23 @@ if( dev ) {
       runTimestamp  = Math.round(Date.now()/1000);
 }
 
-/* Gulp SASS dev compile task*/
+/* Gulp SASS dev compile task */
 gulp.task('sass', function () {
   gulp.src('ui/sass/**/*.scss')
     .pipe(dev ? sourcemaps.init() : util.noop())
     .pipe(no_error_exit ? sass.sync().on('error', sass.logError) : sass.sync().on('error', sass.logError).on('error', process.exit.bind(process, 1)))
     .pipe(dev ? duration('Sass finished') : util.noop())
-    .pipe(util.env.env != 'prod' ? sourcemaps.write('./map') : util.noop())
+    .pipe(!dev ? cssnano() : util.noop())
+    .pipe(dev ? sourcemaps.write('./map') : util.noop())
     .pipe(dev ? duration('created sourcemap files') : util.noop())
-    .pipe(gulp.dest('ui/css/themes'))
+    .pipe(gulp.dest('ui/css'))
     .pipe(dev ? duration('moved all files to /css folder') : util.noop());
 });
 
-/* Default task*/
+/* Default task */
 gulp.task('default', ['sass']);
 
-/*Help task*/
+/* Help task */
 gulp.task('help', function () {
   console.log("\n\nUsage".underline);
   console.log("  gulp [command] --option\n\n"+"Commands:".underline);
