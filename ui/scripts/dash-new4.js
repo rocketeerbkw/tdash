@@ -885,7 +885,7 @@ var dash = new function () {
          indStr += ' indRead';
         }
         var createdMillis = Date.parse(tweet.created_at);
-        var tweetText = tweet.retweeted_status ? '<span class="quickRTLabel">Quick RT @'+tweet.retweeted_status.user.screen_name + "</span>&nbsp;" + tweet.retweeted_status.text : tweet.text;
+        var tweetText = tweet.retweeted_status ? '<span class="quickRTLabel">Quick RT @'+tweet.retweeted_status.user.screen_name + "</span>&nbsp;" + tweet.retweeted_status.full_text : tweet.full_text;
 
         classStr += (tweet.tdashRead ? ' read' : ' unread')
         tweetStr += '<tr data-tweet-id="'+tweetId+'" id="stat'+tweetId+'" onclick="dash.clickStat('+"'"+tweetId+"'"+')" class="' + classStr +'">';
@@ -959,7 +959,7 @@ var dash = new function () {
 
 
   function updateReplyToData(tweet, n) {
-    var replyToStr = '<div class="replyToData">In reply to <em>' + tweet.user.screen_name + "</em> &#8227; " + tweetEntityReplace(tweet.text, tweet) + "</div>";
+    var replyToStr = '<div class="replyToData">In reply to <em>' + tweet.user.screen_name + "</em> &#8227; " + tweetEntityReplace(tweet.full_text || tweet.text, tweet) + "</div>";
     var replyToId = tweet.in_reply_to_status_id_str;
     if (replyToId) {
       replyToStr += '<div class="replyTo replyTo'+replyToId+'"><div class="replyToData">';
@@ -1145,7 +1145,7 @@ var dash = new function () {
   this.retweet = function(id) {
     var tweet = tweetCache[id];
     if (tweet) {
-      var retweetText = "RT @"+tweet.user.screen_name+" "+tweet.text;
+      var retweetText = "RT @"+tweet.user.screen_name+" "+tweet.full_text;
       clearReply();
       $("#updateInput").val(retweetText).focus().setCursorPosition(0);
       // $("#updateButton").removeAttr("disabled");
@@ -1268,6 +1268,7 @@ var dash = new function () {
   function getTweets(pageNum, append, getMoreCount) {
     var params = append ? appendFriendParams : currUser.insrtFrndParams;
     params.page = pageNum + 1;
+    params.tweet_mode = 'extended';
 
     rQ.nQ(currLogin, false, "Friends' timeline (depth "+getMoreCount+")", "https://api.twitter.com/1.1/statuses/home_timeline.json", params, currLogin, function(tweets, login) {
       lastUpdate = getCurrTime();
