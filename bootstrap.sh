@@ -2,8 +2,8 @@
 
 # System deps
 apt-get update
-apt-get install -y default-jre unzip git postgresql
-gem install sass
+apt-get install -y build-essential ruby-dev default-jre unzip git postgresql
+gem install sass -v 3.4.25
 
 # Program deps
 mkdir /vagrant/bin
